@@ -1,4 +1,4 @@
-<ng-container *ngIf="chartData; else noChartDataTemplate">
+<!-- <ng-container *ngIf="chartData; else noChartDataTemplate">
   <app-chart></app-chart>
 </ng-container>
 
@@ -12,4 +12,8 @@
 
 <app-data-manager *ngIf="!showDataInsertComponent" 
               (hideComponent)="showDataInsertComponent = false" >
-</app-data-manager>
+</app-data-manager> -->
+
+<app-data-insert>
+  
+</app-data-insert>

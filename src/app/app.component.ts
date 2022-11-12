@@ -16,10 +16,4 @@ export class AppComponent {
     console.log('witam');
     this.showDataInsertComponent = true;
   }
-
-  hideDataInsertComponent(event: boolean) {
-    console.log(event);
-    
-    this.showDataInsertComponent = false;
-  }
 }
