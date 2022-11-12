@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ChartData } from 'chart.js';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Mpso';
+
+  chartData!: ChartData[];
+  showDataInsertComponent: boolean = false;
+
+  click(){
+    console.log('witam');
+    this.showDataInsertComponent = true;
+  }
+
+  hideDataInsertComponent(event: boolean) {
+    console.log(event);
+    
+    this.showDataInsertComponent = false;
+  }
 }
