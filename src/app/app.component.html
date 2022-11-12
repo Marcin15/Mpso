@@ -4,11 +4,12 @@
 
 <ng-template #noChartDataTemplate>
   <div class="no-chart-data-template">
-    <span>It seems you haven't added any data yet.</span>
+    <span>It seems you haven't added any data yet <p>🤔</p></span>
+
     <button (click)="showDataInsertComponent = true">Add data!</button>
   </div>
 </ng-template>
 
-<app-data-insert *ngIf="showDataInsertComponent" 
+<app-data-manager *ngIf="!showDataInsertComponent" 
               (hideComponent)="showDataInsertComponent = false" >
-</app-data-insert>
+</app-data-manager>

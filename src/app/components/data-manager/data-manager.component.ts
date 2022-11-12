@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-data-insert',
-  templateUrl: './data-insert.component.html',
-  styleUrls: ['./data-insert.component.scss']
+  selector: 'app-data-manager',
+  templateUrl: './data-manager.component.html',
+  styleUrls: ['./data-manager.component.scss']
 })
-export class DataInsertComponent implements OnInit {
+export class DataManagerComponent implements OnInit {
 
   @Output() hideComponent = new EventEmitter<boolean>();
   constructor() { }

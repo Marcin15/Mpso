@@ -1,0 +1,52 @@
+$bg: rgba(238, 238, 238, 1);
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(102, 102, 102, .5);
+}
+
+.container{
+    position: fixed;
+    width: 90%;
+    height: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    background-color: $bg;
+    border-radius: 1rem;
+}
+
+.header {
+    width: 100%;
+    height: 20%;
+
+
+    .button-wrapper {
+        display: flex;
+        margin-top: 1rem;
+        margin-left: 1rem;
+        gap: 1.6rem;
+
+        button {
+            outline: none;
+            border: none;
+            border-radius: .8rem;
+            background-color: #ccc;
+            padding: .8rem;
+            width: 8rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+    }
+
+    .line {
+        width: 100%;
+        height: .3rem;
+        background: linear-gradient(180deg, $bg 0%, rgba(90,90,90,1) 50%, $bg 100%);
+    }
+}
