@@ -12,17 +12,47 @@
 .container {
     position: fixed;
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 30vw;
+    width: 350px;
     height: 60vh;
     background-color: #fff;
     border-radius: 1rem;
 
+    .data-insert {
+        height: 100%;
+        margin-top: 2rem;
+
+        table {
+            width: 100%;
+
+            th {
+                font-size: 1.1rem;
+            }
+
+            tr {
+                height: 2rem;
+                background-color: #ccc;
+
+                .No-row {
+                    text-align: center;
+                }
+    
+                .input-row {
+                    input {
+                        width: 85%;
+                        height: 1.3rem;
+                    }
+                }
+            }
+        }
+    }
+
     .footer{
         display: flex;
-        align-self: flex-end;
         justify-content: center;
         align-items: center;
         height: 15%;
