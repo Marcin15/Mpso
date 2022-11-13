@@ -25,26 +25,29 @@
     .data-insert {
         height: 100%;
         margin-top: 2rem;
-
+        overflow: auto;
+        
         table {
             width: 100%;
-
+            
             th {
                 font-size: 1.1rem;
             }
-
-            tr {
-                height: 2rem;
-                background-color: #ccc;
-
-                .No-row {
-                    text-align: center;
-                }
+            
+            tbody {
+                tr {
+                    height: 2rem;
+                    background-color: #ccc;
     
-                .input-row {
-                    input {
-                        width: 85%;
-                        height: 1.3rem;
+                    .No-row {
+                        text-align: center;
+                    }
+        
+                    .input-row {
+                        input {
+                            width: 96.9%;
+                            height: 1.3rem;
+                        }
                     }
                 }
             }

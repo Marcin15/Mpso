@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-data-insert',
@@ -11,28 +12,32 @@ export class DataInsertComponent implements AfterViewInit {
 
   private _table!: HTMLTableElement;
   private _lastInput!: HTMLInputElement;
-  private _asd!: number;
+  
+  tableRowInserterArray: any[] = [Object];
+
   constructor() { }
 
   ngAfterViewInit(): void {
     this._table = this.dataInsertTable.nativeElement;
-    
-    this._lastInput = this._table.rows[this._table.rows.length - 1].querySelector('input') as HTMLInputElement;   
 
-    this._asd = 123
+    this.AppendEventToTheLastInput();
+  }
+
+  private AppendEventToTheLastInput() {
+    this._lastInput = this._table.rows[this.tableRowInserterArray.length - 1].querySelector('input') as HTMLInputElement;
 
     console.log(this._lastInput);
+    
+    const lastInputEventSubscription = fromEvent(this._lastInput, 'keydown')
+    .subscribe((event) => {
+      if(event) {
+        this.tableRowInserterArray.push(Object);
+        lastInputEventSubscription.unsubscribe();
 
-    this._lastInput.addEventListener('keydown', this.lastInputKeyPressed.bind(this), false);
-  }
-
-  lastInputKeyPressed(event: KeyboardEvent) {    
-    if(event) {
-      this._lastInput.replaceWith(this._lastInput.cloneNode(true)); //remove all event listeners
-    }
-  }
-
-  click() {
-    this._lastInput.removeEventListener('keydown', this.lastInputKeyPressed, false)
+        setTimeout(() => { 
+          this.AppendEventToTheLastInput(); //recursion HAVE TO be delayed in race condition
+        }, 0);
+      }
+    });
   }
 }

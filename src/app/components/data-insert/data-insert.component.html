@@ -4,6 +4,7 @@
         <table #dataInsertTable>
             <colgroup>
                 <col span="1" style="width: 15%;">
+                <col span="1" style="width: 79%;">
              </colgroup>
 
             <thead>
@@ -11,18 +12,15 @@
                 <th>Values</th>
             </thead>
             <tbody>
-                <tr>
-                    <td class="No-row"><span>1.</span></td>
+                <tr class="table-row" *ngFor="let item of tableRowInserterArray; let i = index">
+                    <td class="No-row"><span>{{i + 1}}.</span></td>
                     <td class="input-row"><input></td>
-                </tr>
-                <tr>
-                    <td class="No-row"><span>1.</span></td>
-                    <td class="input-row"><input></td>
+                    <td>#</td>
                 </tr>
             </tbody>
         </table>
     </section>
     <section class="footer">
-        <button class="save" (click)="click()">Save</button>
+        <button class="save" >Save</button>
     </section>
 </div>
