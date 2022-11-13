@@ -2,10 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-data-manager',
-  templateUrl: './data-manager.component.html',
-  styleUrls: ['./data-manager.component.scss']
+  templateUrl: './data-manager-dialog.component.html',
+  styleUrls: ['./data-manager-dialog.component.scss']
 })
-export class DataManagerComponent implements OnInit {
+export class DataManagerDialogComponent implements OnInit {
 
   @Output() hideComponent = new EventEmitter<boolean>();
   constructor() { }

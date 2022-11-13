@@ -25,3 +25,33 @@
         cursor: pointer;
     }
 }
+
+.selectedProfile {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.chart {
+    margin-bottom: 10px;
+}
+
+.add-new-wrapper {
+    width: 100%;
+    // padding-top: 5rem;
+    margin-top: 100px;
+
+    button {
+        outline: none;
+        border: none;
+        font-size: 1rem;
+        padding: .5rem 1rem;
+        text-align: left;
+        margin: 0 0 -100px 60px;
+        border-radius: .5rem;
+        outline: 1rem;
+        cursor: pointer;
+    }
+}

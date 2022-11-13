@@ -1,19 +1,32 @@
-<!-- <ng-container *ngIf="chartData; else noChartDataTemplate">
-  <app-chart></app-chart>
+<ng-container *ngIf="!profileData.length; else noChartDataTemplate">
+  <div class="selectedProfile">
+    <div class="add-new-wrapper">
+      <button>Manage profiles</button>
+    </div>
+    <div class="chart">
+      <app-chart></app-chart>
+    </div>
+  </div>
 </ng-container>
 
 <ng-template #noChartDataTemplate>
   <div class="no-chart-data-template">
     <span>It seems you haven't added any data yet <p>🤔</p></span>
 
-    <button (click)="showDataInsertComponent = true">Add data!</button>
+    <button (click)="showDataInsertDialog = true">Add data!</button>
   </div>
 </ng-template>
 
+<app-data-insert-dialog *ngIf="showDataInsertDialog" 
+                        (closeDialog)="showDataInsertDialog = false"
+                        (getProfileData)="getProfileData($event)">
+</app-data-insert-dialog>
+
+<!--
 <app-data-manager *ngIf="!showDataInsertComponent" 
               (hideComponent)="showDataInsertComponent = false" >
 </app-data-manager> -->
 
-<app-data-insert>
-  
-</app-data-insert>
+<!-- <app-data-insert>
+
+</app-data-insert> -->

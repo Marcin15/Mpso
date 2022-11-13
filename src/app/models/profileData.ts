@@ -1,4 +1,4 @@
-export interface ChartProfile {
+export interface ProfileData {
     title: string,
     description: string,
     values: number[],

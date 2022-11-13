@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ChartData } from 'chart.js';
+import { ProfileData } from './models/profileData';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +9,15 @@ import { ChartData } from 'chart.js';
 export class AppComponent {
   title = 'Mpso';
 
-  chartData!: ChartData[];
-  showDataInsertComponent: boolean = false;
+  profileData: ProfileData[] = [];
+  showDataInsertDialog: boolean = false;
 
   click(){
-    console.log('witam');
-    this.showDataInsertComponent = true;
+    this.showDataInsertDialog = true;
+  }
+
+  getProfileData(event: ProfileData) {
+    this.profileData.push(event);
+    this.showDataInsertDialog = false;
   }
 }

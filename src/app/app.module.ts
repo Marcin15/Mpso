@@ -3,22 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { ChartComponent } from './components/chart/chart.component';
-import { DataManagerComponent } from './components/data-manager/data-manager.component';
-import { DataInsertComponent } from './components/data-insert/data-insert.component';
+import { DataManagerDialogComponent } from './components/dialogs/data-manager-dialog/data-manager-dialog.component';
+import { DataInsertDialogComponent } from './components/dialogs/data-insert-dialog/data-insert-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { NgChartsConfiguration, NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChartComponent,
-    DataManagerComponent,
-    DataInsertComponent
+    DataManagerDialogComponent,
+    DataInsertDialogComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    NgChartsModule
   ],
-  providers: [],
+  providers: [
+    { provide: NgChartsConfiguration, useValue: { generateColors: false } }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

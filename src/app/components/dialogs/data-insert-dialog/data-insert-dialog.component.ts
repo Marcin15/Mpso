@@ -1,17 +1,20 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { EventManager } from '@angular/platform-browser';
 import { fromEvent } from 'rxjs';
+import { ProfileData } from 'src/app/models/profileData';
 import { DataInsertInput } from 'src/app/models/dataInsertInput';
 
 @Component({
-  selector: 'app-data-insert',
-  templateUrl: './data-insert.component.html',
-  styleUrls: ['./data-insert.component.scss']
+  selector: 'app-data-insert-dialog',
+  templateUrl: './data-insert-dialog.component.html',
+  styleUrls: ['./data-insert-dialog.component.scss']
 })
-export class DataInsertComponent implements AfterViewInit {
+export class DataInsertDialogComponent implements AfterViewInit {
 
   @ViewChild('dataInsertTable') dataInsertTable!: ElementRef;
+  @Output() getProfileData = new EventEmitter<ProfileData>; 
+  @Output() closeDialog = new EventEmitter;
 
   private _table!: HTMLTableElement;
   private allowedCharacters = '1234567890,.';
@@ -73,7 +76,17 @@ export class DataInsertComponent implements AfterViewInit {
     [this.tableRowInserterArray[1], this.tableRowInserterArray[0]];
   }
 
-  click() {
-    
+  saveClick() {
+    this.getProfileData.emit({
+      title: this.title,
+      values: [1, 2, 3, 4, 5, 10],
+      description: 'desc',
+      dateCreated: new Date(),
+      lastModified: new Date()
+    });
+  }
+
+  closeDialogClick() {    
+    this.closeDialog.emit();
   }
 }
