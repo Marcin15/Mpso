@@ -21,52 +21,89 @@
     height: 60vh;
     background-color: #fff;
     border-radius: 1rem;
+}
 
-    .data-insert {
-        height: 100%;
-        margin-top: 2rem;
-        overflow: auto;
-        
-        table {
-            width: 100%;
-            
-            th {
-                font-size: 1.1rem;
-            }
-            
-            tbody {
-                tr {
-                    height: 2rem;
-                    background-color: #ccc;
+.data-insert {
+    height: 100%;
+    overflow: auto;
+}
+
+.title-wrapper {
+    display: flex;
+    justify-content: center;
+
+
+    .title {
+        border: none;
+        outline: none;
+        text-align: center;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin: 1rem 0 .5rem;
+    }
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    user-select: none;
+
+    thead {
+
+        th {
+            position: sticky;
+            top: 0;
+            font-size: 1.1rem;
+            background-color: red;
+        }
+    }
     
-                    .No-row {
-                        text-align: center;
+    tbody {
+        tr {
+            height: 2rem;
+            background-color: #ccc;
+            user-select: none;
+            .No-row {
+                text-align: center;
+            }
+
+            .input-row {
+                input {
+                    width: 96.9%;
+                    height: 1.3rem;
+
+
+                    &[type="number"] {
+                        -moz-appearance:textfield;
                     }
-        
-                    .input-row {
-                        input {
-                            width: 96.9%;
-                            height: 1.3rem;
-                        }
-                    }
+    
+                    &::-webkit-outer-spin-button,
+                    &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    }   
                 }
+            }
+
+            .moveHandler {
+                cursor: pointer;
+                user-select: text;
             }
         }
     }
+}
 
-    .footer{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 15%;
-        width: 100%;
+.footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15%;
+    width: 100%;
 
-        button {
-            border: none;
-            padding: .5rem 1.2rem;
-            border-radius: .5rem;
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
+    button {
+        border: none;
+        padding: .5rem 1.2rem;
+        border-radius: .5rem;
+        font-size: 1.2rem;
+        cursor: pointer;
     }
 }

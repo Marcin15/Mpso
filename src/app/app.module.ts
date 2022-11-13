@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { DataManagerComponent } from './components/data-manager/data-manager.component';
 import { DataInsertComponent } from './components/data-insert/data-insert.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { DataInsertComponent } from './components/data-insert/data-insert.compon
     DataInsertComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

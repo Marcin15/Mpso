@@ -1,5 +1,8 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { NgModel } from '@angular/forms';
+import { EventManager } from '@angular/platform-browser';
 import { fromEvent } from 'rxjs';
+import { DataInsertInput } from 'src/app/models/dataInsertInput';
 
 @Component({
   selector: 'app-data-insert',
@@ -11,9 +14,10 @@ export class DataInsertComponent implements AfterViewInit {
   @ViewChild('dataInsertTable') dataInsertTable!: ElementRef;
 
   private _table!: HTMLTableElement;
-  private _lastInput!: HTMLInputElement;
+  private allowedCharacters = '1234567890,.';
   
-  tableRowInserterArray: any[] = [Object];
+  title: string = 'Profile1';
+  tableRowInserterArray: DataInsertInput[] = [{Id: 1, value: 0}, {Id: 2, value: 1}];
 
   constructor() { }
 
@@ -22,16 +26,15 @@ export class DataInsertComponent implements AfterViewInit {
 
     this.AppendEventToTheLastInput();
   }
-
+  
   private AppendEventToTheLastInput() {
-    this._lastInput = this._table.rows[this.tableRowInserterArray.length - 1].querySelector('input') as HTMLInputElement;
-
-    console.log(this._lastInput);
+    let lastInput = this._table.rows[this.tableRowInserterArray.length - 1] as HTMLTableRowElement;
+    this.allowDragElements(lastInput);
     
-    const lastInputEventSubscription = fromEvent(this._lastInput, 'keydown')
-    .subscribe((event) => {
-      if(event) {
-        this.tableRowInserterArray.push(Object);
+    const lastInputEventSubscription = fromEvent(lastInput, 'keydown').subscribe((event) => {
+      let keyboarEvent = event as KeyboardEvent;
+      if(this.allowedCharacters.includes(keyboarEvent.key)) {
+        this.addNewRow();
         lastInputEventSubscription.unsubscribe();
 
         setTimeout(() => { 
@@ -39,5 +42,38 @@ export class DataInsertComponent implements AfterViewInit {
         }, 0);
       }
     });
+  }
+
+  private addNewRow() {
+    console.log(this.tableRowInserterArray);
+    
+    let lastId = this.tableRowInserterArray.at(-1)?.Id as number;
+
+    this.tableRowInserterArray.push({
+      Id: lastId + 1,
+      value: 0
+    })
+  }
+
+  private allowDragElements(lastRow: HTMLTableRowElement) {
+
+    let moveHandler = lastRow.querySelector('.moveHandler'); 
+
+    console.log(moveHandler);
+    
+
+    fromEvent(lastRow, 'dragstart').subscribe((event) => {
+      console.log(event);
+      
+    });
+  }
+
+  private swapArrayElements() {
+    [this.tableRowInserterArray[0], this.tableRowInserterArray[1]] = 
+    [this.tableRowInserterArray[1], this.tableRowInserterArray[0]];
+  }
+
+  click() {
+    
   }
 }

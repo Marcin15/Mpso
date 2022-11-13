@@ -1,26 +1,30 @@
 <div class="overlay"></div>
 <div class="container">
     <section class="data-insert">
+        <div class="title-wrapper">
+            <input class="title" [(ngModel)]="title">
+        </div>
         <table #dataInsertTable>
             <colgroup>
-                <col span="1" style="width: 15%;">
-                <col span="1" style="width: 79%;">
+                <col span="1" style="width: 10%;">
+                <col span="1" style="width: 85%;">
              </colgroup>
 
             <thead>
                 <th>No.</th>
                 <th>Values</th>
+                <th></th>
             </thead>
             <tbody>
                 <tr class="table-row" *ngFor="let item of tableRowInserterArray; let i = index">
                     <td class="No-row"><span>{{i + 1}}.</span></td>
-                    <td class="input-row"><input></td>
-                    <td>#</td>
+                    <td class="input-row"><input type="number" [(ngModel)]="item.value"></td>
+                    <td draggable="true" class="moveHandler">=</td>
                 </tr>
             </tbody>
         </table>
     </section>
     <section class="footer">
-        <button class="save" >Save</button>
+        <button class="save" (click)="click()">Save</button>
     </section>
 </div>
