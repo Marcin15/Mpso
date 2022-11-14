@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { EventManager } from '@angular/platform-browser';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
 import { ProfileData } from 'src/app/models/profileData';
 import { DataInsertInput } from 'src/app/models/dataInsertInput';
 
@@ -17,10 +17,11 @@ export class DataInsertDialogComponent implements AfterViewInit {
   @Output() closeDialog = new EventEmitter;
 
   private _table!: HTMLTableElement;
-  private allowedCharacters = '1234567890,.';
+  private _sub!: Subscription;
+  private _allowedCharacters = '1234567890,.';
   
   title: string = 'Profile1';
-  tableRowInserterArray: DataInsertInput[] = [{Id: 1, value: 0}, {Id: 2, value: 1}];
+  tableRowsArray: DataInsertInput[] = [{Id: 1, value: null}, {Id: 2, value: null}];
 
   constructor() { }
 
@@ -31,12 +32,12 @@ export class DataInsertDialogComponent implements AfterViewInit {
   }
   
   private AppendEventToTheLastInput() {
-    let lastInput = this._table.rows[this.tableRowInserterArray.length - 1] as HTMLTableRowElement;
+    let lastInput = this._table.rows[this.tableRowsArray.length - 1] as HTMLTableRowElement;
     this.allowDragElements(lastInput);
     
     const lastInputEventSubscription = fromEvent(lastInput, 'keydown').subscribe((event) => {
       let keyboarEvent = event as KeyboardEvent;
-      if(this.allowedCharacters.includes(keyboarEvent.key)) {
+      if(this._allowedCharacters.includes(keyboarEvent.key)) {
         this.addNewRow();
         lastInputEventSubscription.unsubscribe();
 
@@ -48,13 +49,13 @@ export class DataInsertDialogComponent implements AfterViewInit {
   }
 
   private addNewRow() {
-    console.log(this.tableRowInserterArray);
+    // console.log(this.tableRowsArray);
     
-    let lastId = this.tableRowInserterArray.at(-1)?.Id as number;
+    let lastId = this.tableRowsArray.at(-1)?.Id as number;
 
-    this.tableRowInserterArray.push({
+    this.tableRowsArray.push({
       Id: lastId + 1,
-      value: 0
+      value: null
     })
   }
 
@@ -62,18 +63,18 @@ export class DataInsertDialogComponent implements AfterViewInit {
 
     let moveHandler = lastRow.querySelector('.moveHandler'); 
 
-    console.log(moveHandler);
+    // console.log(moveHandler);
     
 
     fromEvent(lastRow, 'dragstart').subscribe((event) => {
-      console.log(event);
+      // console.log(event);
       
     });
   }
 
   private swapArrayElements() {
-    [this.tableRowInserterArray[0], this.tableRowInserterArray[1]] = 
-    [this.tableRowInserterArray[1], this.tableRowInserterArray[0]];
+    [this.tableRowsArray[0], this.tableRowsArray[1]] = 
+    [this.tableRowsArray[1], this.tableRowsArray[0]];
   }
 
   saveClick() {
@@ -88,5 +89,15 @@ export class DataInsertDialogComponent implements AfterViewInit {
 
   closeDialogClick() {    
     this.closeDialog.emit();
+  }
+
+  removeEmptyRow(event: KeyboardEvent,index: number) {
+
+    if(this.tableRowsArray.length === 1 || index == this.tableRowsArray.length - 1)
+      return;
+
+    if(this.tableRowsArray[index].value === null) {
+      this.tableRowsArray.splice(index, 1);
+    }
   }
 }

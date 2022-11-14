@@ -16,9 +16,13 @@
                 <th></th>
             </thead>
             <tbody>
-                <tr class="table-row" *ngFor="let item of tableRowInserterArray; let i = index">
+                <tr class="table-row" *ngFor="let item of tableRowsArray; let i = index">
                     <td class="No-row"><span>{{i + 1}}.</span></td>
-                    <td class="input-row"><input type="number" [(ngModel)]="item.value"></td>
+                    <td class="input-row">
+                        <input type="number" 
+                               [(ngModel)]="item.value"
+                               (keydown)="removeEmptyRow($event, i)">
+                    </td>
                     <td draggable="true" class="moveHandler">=</td>
                 </tr>
             </tbody>
