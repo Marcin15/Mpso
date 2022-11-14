@@ -4,6 +4,7 @@ import { EventManager } from '@angular/platform-browser';
 import { fromEvent, Subscription } from 'rxjs';
 import { ProfileData } from 'src/app/models/profileData';
 import { DataInsertInput } from 'src/app/models/dataInsertInput';
+import { dragMode } from 'src/app/models/enums';
 
 @Component({
   selector: 'app-data-insert-dialog',
@@ -17,23 +18,32 @@ export class DataInsertDialogComponent implements AfterViewInit {
   @Output() closeDialog = new EventEmitter;
 
   private _table!: HTMLTableElement;
-  private _sub!: Subscription;
   private _allowedCharacters = '1234567890,.';
+  private _draggingElement!: {
+    element: HTMLDivElement,
+    elementIndex: number
+  };
   
   title: string = 'Profile1';
-  tableRowsArray: DataInsertInput[] = [{Id: 1, value: null}, {Id: 2, value: null}];
+  tableRowsArray: DataInsertInput[] = [
+    {value: 1, isDragging: false}, 
+    {value: 2, isDragging: false},
+    {value: 3, isDragging: false},
+    {value: 4, isDragging: false},
+    {value: 5, isDragging: false},
+    {value: null, isDragging: false},
+  ];
 
   constructor() { }
 
   ngAfterViewInit(): void {
     this._table = this.dataInsertTable.nativeElement;
 
-    this.AppendEventToTheLastInput();
+    // this.AppendEventToTheLastInput();
   }
   
   private AppendEventToTheLastInput() {
     let lastInput = this._table.rows[this.tableRowsArray.length - 1] as HTMLTableRowElement;
-    this.allowDragElements(lastInput);
     
     const lastInputEventSubscription = fromEvent(lastInput, 'keydown').subscribe((event) => {
       let keyboarEvent = event as KeyboardEvent;
@@ -51,30 +61,61 @@ export class DataInsertDialogComponent implements AfterViewInit {
   private addNewRow() {
     // console.log(this.tableRowsArray);
     
-    let lastId = this.tableRowsArray.at(-1)?.Id as number;
-
     this.tableRowsArray.push({
-      Id: lastId + 1,
-      value: null
+      value: null,
+      isDragging: false
     })
   }
 
-  private allowDragElements(lastRow: HTMLTableRowElement) {
-
-    let moveHandler = lastRow.querySelector('.moveHandler'); 
-
-    // console.log(moveHandler);
+  dragStart(event: DragEvent, index: number) {
+    this._draggingElement = {
+      element: event.target as HTMLDivElement,
+      elementIndex: index
+    }
     
-
-    fromEvent(lastRow, 'dragstart').subscribe((event) => {
-      // console.log(event);
-      
-    });
+    this.tableRowsArray[index].isDragging = true;
   }
 
-  private swapArrayElements() {
-    [this.tableRowsArray[0], this.tableRowsArray[1]] = 
-    [this.tableRowsArray[1], this.tableRowsArray[0]];
+  dragEnd(index: number) {
+    this.tableRowsArray[index].isDragging = false;
+  }
+
+  dragOver(event: DragEvent) {
+
+    event.preventDefault();
+    let clientY = event.clientY;
+    const elementsBoundingRect = this._draggingElement.element.getBoundingClientRect();
+    const halfOfHeight = elementsBoundingRect.height / 2;
+    const elementBottom = elementsBoundingRect.bottom;
+    let swappingElementIndex = this._draggingElement.elementIndex;
+
+    if(clientY >= elementBottom + halfOfHeight) {
+
+      this.swapClient(swappingElementIndex, dragMode.UP);
+      return;
+    }
+
+    if(clientY <= elementBottom - halfOfHeight) {
+
+      this.swapClient(swappingElementIndex, dragMode.DOWN);
+      return;
+    }
+  }
+
+  private swapClient(swappingElementIndex: number, dragMode: dragMode) {
+
+    let swappedElementIndex = swappingElementIndex + dragMode;
+
+    if(swappedElementIndex == -1 || swappedElementIndex == this.tableRowsArray.length - 1)
+      return;
+
+    this.swapArrayElements(swappingElementIndex, swappedElementIndex);
+    this._draggingElement.elementIndex += dragMode;
+  }
+
+  private swapArrayElements(swappingElementIndex: number, swappedElementIndex: number) {
+    [this.tableRowsArray[swappingElementIndex], this.tableRowsArray[swappedElementIndex]] = 
+    [this.tableRowsArray[swappedElementIndex], this.tableRowsArray[swappingElementIndex]];
   }
 
   saveClick() {

@@ -59,10 +59,16 @@ table {
     }
     
     tbody {
+
+        .dragging {
+            background-color: #bbb;
+        }
+
         tr {
             height: 2rem;
             background-color: #ccc;
             user-select: none;
+            
             .No-row {
                 text-align: center;
             }

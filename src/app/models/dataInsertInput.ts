@@ -1,4 +1,4 @@
 export interface DataInsertInput {
-    Id: number,
-    value: number | null
+    value: number | null,
+    isDragging: boolean
 }
