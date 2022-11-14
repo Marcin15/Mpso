@@ -1,0 +1,16 @@
+TO DO:
+-insert data component: 
+    -delete last empty row in insert data component
+    -improve insert data component experience
+    -add drag and out feature to insert data component
+    -allow to create row between already existing rows in insert data component
+
+-chart component:
+    -fix comunication between chart component and parent
+
+-profile manager component:
+    -display profile manager component on button click
+    -allow edit and delete profiles
+
+-other:
+    -create busines logic services
