@@ -1,10 +1,12 @@
-<ng-container *ngIf="!profileData.length; else noChartDataTemplate">
+<ng-container *ngIf="selectedProfile; else noChartDataTemplate">
   <div class="selectedProfile">
     <div class="add-new-wrapper">
       <button>Manage profiles</button>
     </div>
     <div class="chart">
-      <app-chart></app-chart>
+      <app-chart [values]="selectedProfile.values"
+                 [title]="selectedProfile.title">
+    </app-chart>
     </div>
   </div>
 </ng-container>

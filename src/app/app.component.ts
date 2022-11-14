@@ -10,6 +10,7 @@ export class AppComponent {
   title = 'Mpso';
 
   profileData: ProfileData[] = [];
+  selectedProfile!: ProfileData;
   showDataInsertDialog: boolean = false;
 
   click(){
@@ -19,5 +20,13 @@ export class AppComponent {
   getProfileData(event: ProfileData) {
     this.profileData.push(event);
     this.showDataInsertDialog = false;
+
+    this.setDefaultProfile();    
+  }
+
+  setDefaultProfile(){
+    if(this.profileData.length === 1) {
+      this.selectedProfile = this.profileData[0];
+    }
   }
 }
