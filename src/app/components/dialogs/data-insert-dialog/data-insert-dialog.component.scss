@@ -1,4 +1,5 @@
-
+$tooltip-width: 2rem;
+$tooltip-height: 1.2rem;
 
 .overlay {
     position: fixed;
@@ -6,7 +7,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(102, 102, 102, .5);
+    background-color: rgba(102, 102, 102, 0.5);
 }
 
 .container {
@@ -17,21 +18,21 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 400px;
+    height: 80vh;
+}
+
+.dialog-wrapper {
+    position: relative;
     width: 350px;
     height: 60vh;
     background-color: #fff;
     border-radius: 1rem;
 }
 
-.data-insert {
-    height: 100%;
-    overflow: auto;
-}
-
 .title-wrapper {
     display: flex;
     justify-content: center;
-
 
     .title {
         border: none;
@@ -39,7 +40,7 @@
         text-align: center;
         font-size: 1.3rem;
         font-weight: 600;
-        margin: 1rem 0 .5rem;
+        margin: 1rem 0 0.5rem;
     }
 }
 
@@ -49,7 +50,6 @@ table {
     user-select: none;
 
     thead {
-
         th {
             position: sticky;
             top: 0;
@@ -57,9 +57,8 @@ table {
             background-color: red;
         }
     }
-    
-    tbody {
 
+    tbody {
         .dragging {
             background-color: #bbb;
         }
@@ -86,25 +85,51 @@ table {
                     font-size: 1.3rem;
 
                     &[type="number"] {
-                        -moz-appearance:textfield;
+                        -moz-appearance: textfield;
                     }
-    
+
                     &::-webkit-outer-spin-button,
                     &::-webkit-inner-spin-button {
-                    -webkit-appearance: none;
-                    }   
+                        -webkit-appearance: none;
+                    }
                 }
             }
 
             .moveHandler {
+                position: relative;
+                user-select: none;
                 cursor: pointer;
-                user-select: text;
+                
+                .insert-row-tooltip {
+                    visibility: hidden;
+                    opacity: 0;
+                    position: absolute;
+                    top: calc(-1 * $tooltip-height / 2);
+                    left: 20px;
+                    width: $tooltip-width;
+                    height: $tooltip-height;
+                    z-index: 2;
+                    background-color: white;
+                    transition-property: opacity, visibility;
+                    transition-duration: 200ms;
+                    transition-timing-function: ease-in-out;
+                }
+                
+                &:hover .insert-row-tooltip {
+                    visibility: visible;
+                    opacity: 1;
+                    z-index: 2;
+                }
+
+                &:active .insert-row-tooltip {
+                    opacity: 0;
+                }
             }
         }
     }
 }
 
-.footer{
+.footer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -113,8 +138,8 @@ table {
 
     button {
         border: none;
-        padding: .5rem 1.2rem;
-        border-radius: .5rem;
+        padding: 0.5rem 1.2rem;
+        border-radius: 0.5rem;
         font-size: 1.2rem;
         cursor: pointer;
     }

@@ -38,6 +38,8 @@ export class DataInsertDialogComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this._table = this.dataInsertTable.nativeElement;
+
+    this.AppendEventToTheLastInput();
   }
   
   private AppendEventToTheLastInput() {
@@ -71,6 +73,9 @@ export class DataInsertDialogComponent implements AfterViewInit {
   }
 
   dragStart(event: DragEvent, index: number) {
+    if(index === this.tableRowsArray.length - 1)
+      return;
+
     this._draggingElement = {
       element: event.target as HTMLDivElement,
       elementIndex: index
