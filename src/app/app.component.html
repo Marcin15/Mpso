@@ -19,10 +19,9 @@
   </div>
 </ng-template>
 
-<app-data-insert-dialog *ngIf="showDataInsertDialog" 
-                        (closeDialog)="showDataInsertDialog = false"
-                        (getProfileData)="getProfileData($event)">
-</app-data-insert-dialog>
+<app-basic-information-dialog *ngIf="showDataInsertDialog" 
+                        (closeDialog)="showDataInsertDialog = false">
+</app-basic-information-dialog>
 
 <!--
 <app-data-manager *ngIf="!showDataInsertComponent" 

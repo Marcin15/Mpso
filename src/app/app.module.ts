@@ -7,13 +7,15 @@ import { DataManagerDialogComponent } from './components/dialogs/data-manager-di
 import { DataInsertDialogComponent } from './components/dialogs/data-insert-dialog/data-insert-dialog.component';
 import { FormsModule } from '@angular/forms';
 import { NgChartsConfiguration, NgChartsModule } from 'ng2-charts';
+import { BasicInformationDialogComponent } from './components/dialogs/basic-information-dialog/basic-information-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChartComponent,
     DataManagerDialogComponent,
-    DataInsertDialogComponent
+    DataInsertDialogComponent,
+    BasicInformationDialogComponent
   ],
   imports: [
     BrowserModule,

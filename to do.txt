@@ -1,6 +1,6 @@
 TO DO:
 -insert basic information dialog component:
-    -create 'insert-basic-information-dialog-component'
+    -create 'insert-basic-information-dialog-component' ✔
     -pass data to insert data component
 
 -insert data component: 
