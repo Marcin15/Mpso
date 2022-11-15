@@ -4,7 +4,7 @@ import { EventManager } from '@angular/platform-browser';
 import { fromEvent, Subscription } from 'rxjs';
 import { ProfileData } from 'src/app/models/profileData';
 import { DataInsertInput } from 'src/app/models/dataInsertInput';
-import { dragMode } from 'src/app/models/enums';
+import { dragMode, keyCodes } from 'src/app/models/enums';
 
 @Component({
   selector: 'app-data-insert-dialog',
@@ -38,8 +38,6 @@ export class DataInsertDialogComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this._table = this.dataInsertTable.nativeElement;
-
-    // this.AppendEventToTheLastInput();
   }
   
   private AppendEventToTheLastInput() {
@@ -58,9 +56,14 @@ export class DataInsertDialogComponent implements AfterViewInit {
     });
   }
 
-  private addNewRow() {
-    // console.log(this.tableRowsArray);
-    
+  insertNewRow(index: number) {
+    this.tableRowsArray.splice(index, 0, {
+      value: null,
+      isDragging: false
+    });
+  }
+
+  private addNewRow() {    
     this.tableRowsArray.push({
       value: null,
       isDragging: false
@@ -118,6 +121,17 @@ export class DataInsertDialogComponent implements AfterViewInit {
     [this.tableRowsArray[swappedElementIndex], this.tableRowsArray[swappingElementIndex]];
   }
 
+  removeEmptyRow(event: KeyboardEvent, index: number) {
+
+    if(this.tableRowsArray.length === 1 || index == this.tableRowsArray.length - 1)
+      return;
+
+    if(this.tableRowsArray[index].value === null && event.key === 'Backspace') {
+      this.tableRowsArray.splice(index, 1);
+    }
+  }
+
+  // EVENTS EMITTERS:
   saveClick() {
     this.getProfileData.emit({
       title: this.title,
@@ -130,15 +144,5 @@ export class DataInsertDialogComponent implements AfterViewInit {
 
   closeDialogClick() {    
     this.closeDialog.emit();
-  }
-
-  removeEmptyRow(event: KeyboardEvent,index: number) {
-
-    if(this.tableRowsArray.length === 1 || index == this.tableRowsArray.length - 1)
-      return;
-
-    if(this.tableRowsArray[index].value === null) {
-      this.tableRowsArray.splice(index, 1);
-    }
   }
 }

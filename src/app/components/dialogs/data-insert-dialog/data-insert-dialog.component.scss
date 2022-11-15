@@ -64,11 +64,17 @@ table {
             background-color: #bbb;
         }
 
-        tr {
+        .test {
+            height: 2px;
+            background-color: red;
+            cursor: pointer;
+        }
+
+        .table-row {
             height: 2rem;
             background-color: #ccc;
             user-select: none;
-            
+
             .No-row {
                 text-align: center;
             }

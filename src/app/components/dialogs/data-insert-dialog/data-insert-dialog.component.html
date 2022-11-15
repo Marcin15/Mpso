@@ -16,21 +16,29 @@
                 <th></th>
             </thead>
             <tbody (dragover)="dragOver($event)">
-                <tr class="table-row" 
-                    *ngFor="let item of tableRowsArray; let i = index"
-                    [ngClass]="{'dragging': item.isDragging}"
-                    draggable="true">
-                    <td class="No-row"><span>{{i + 1}}.</span></td>
-                    <td class="input-row">
-                        <input type="number" 
-                               [(ngModel)]="item.value"
-                               (keydown)="removeEmptyRow($event, i)">
-                    </td>
-                    <td class="moveHandler"
-                        draggable="true"
-                        (dragstart)="dragStart($event, i)"
-                        (dragend)="dragEnd(i)">=</td>
-                </tr>
+                <ng-container *ngFor="let item of tableRowsArray; let i = index">
+                    <tr class="test"
+                        (click)="insertNewRow(i)">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="table-row" 
+                        [ngClass]="{'dragging': item.isDragging}"
+                        draggable="true">
+                        <td class="No-row"><span>{{i + 1}}.</span></td>
+                        <td class="input-row">
+                            <input type="number" 
+                                [(ngModel)]="item.value"
+                                (keydown)="removeEmptyRow($event, i)">
+                        </td>
+                        <td class="moveHandler"
+                            draggable="true"
+                            (dragstart)="dragStart($event, i)"
+                            (dragend)="dragEnd(i)">=
+                        </td>
+                    </tr>
+                </ng-container>
             </tbody>
         </table>
     </section>
