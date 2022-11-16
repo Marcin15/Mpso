@@ -3,13 +3,13 @@
     <div class="dialog-wrapper"></div>
     <div class="header-container">
         <div class="header-wrapper">
-            <button class="header-button">
+            <button class="header-button" (click)="backToPreviousDialogClick()">
                 <span class="material-symbols-outlined">
                     keyboard_backspace
                 </span>
             </button>
             <span>Fill in table with data</span>
-            <button class="header-button right">
+            <button class="header-button right" (click)="closeDialogClick()">
                 <span class="material-symbols-outlined"> close </span>
             </button>
         </div>

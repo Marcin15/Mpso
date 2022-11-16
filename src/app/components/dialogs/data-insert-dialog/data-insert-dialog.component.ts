@@ -17,6 +17,7 @@ export class DataInsertDialogComponent implements AfterViewInit {
   // @Input() userProfileBasicInfo!: ProfileBasicInformation;
 
   @Output() getProfileData = new EventEmitter<number[]>; 
+  @Output() backToPreviousDialog = new EventEmitter;
   @Output() closeDialog = new EventEmitter;
 
   private _table!: HTMLTableElement;
@@ -141,5 +142,9 @@ export class DataInsertDialogComponent implements AfterViewInit {
 
   closeDialogClick() {    
     this.closeDialog.emit();
+  }
+
+  backToPreviousDialogClick() {
+    this.backToPreviousDialog.emit();
   }
 }

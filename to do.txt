@@ -2,14 +2,17 @@ TO DO:
 -insert basic information dialog component:
     -create 'insert-basic-information-dialog-component' ✔
     -pass data to insert data component ✔
+    -add validation
+    -improve insert data component user experience 
 
 -insert data component: 
     -delete last empty row in insert data component ✔
     -stop displaying '0' when new row is created ✔
     -add drag and drop feature to insert data component ✔
     -allow to create row between already existing rows in insert data component ✔
-    -come up with an esthetic way of inserting new rows +/-
-    -improve insert data component user experience
+    -come up with an esthetic way of inserting new rows ✔
+    -improve insert data component user experience ✔
+    -add validation (min 5 rows should be accepted)
 
 -chart component:
     -fix comunication between chart component and parent

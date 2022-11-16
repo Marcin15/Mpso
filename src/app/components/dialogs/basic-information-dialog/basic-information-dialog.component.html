@@ -37,6 +37,7 @@
 
 <app-data-insert-dialog
     *ngIf="dialogHidden"
+    (backToPreviousDialog)="dialogHidden = false"
     (closeDialog)="closeDialogClick()"
     (getProfileData)="operationSuccessful($event)"
 >
