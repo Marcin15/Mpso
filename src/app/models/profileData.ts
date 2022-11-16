@@ -1,6 +1,7 @@
+import { ProfileBasicInformation } from "./profileBasicInformation"
+
 export interface ProfileData {
-    title: string,
-    description: string,
+    userProfileBasicInfo: ProfileBasicInformation,
     values: number[],
     dateCreated: Date,
     lastModified: Date

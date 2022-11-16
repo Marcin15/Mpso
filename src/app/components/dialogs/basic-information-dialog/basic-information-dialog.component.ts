@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { ProfileBasicInformation } from 'src/app/models/profileBasicInformation';
 import { ProfileData } from 'src/app/models/profileData';
 
 @Component({
@@ -8,7 +9,13 @@ import { ProfileData } from 'src/app/models/profileData';
 })
 export class BasicInformationDialogComponent implements OnInit {
 
-  @Output() getProfileData = new EventEmitter<ProfileData>; 
+  @ViewChild('titleInput') titleInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('descriptionTextarea') descriptionTextarea!: ElementRef<HTMLTextAreaElement>;
+
+  @Output() getUserProfileData = new EventEmitter<ProfileData>; 
+  userProfileBasicInfo!: ProfileBasicInformation;
+  dialogHidden = false;
+
   @Output() closeDialog = new EventEmitter;
   
   title!: string;
@@ -19,7 +26,33 @@ export class BasicInformationDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  titleInputClick(){
+    this.titleInput.nativeElement.focus();
+  }
+
+  descriptionTextareaClick() {
+    this.descriptionTextarea.nativeElement.focus();
+  }
+
   closeDialogClick() {    
     this.closeDialog.emit();
+  }
+
+  submitClick() {
+    this.userProfileBasicInfo = {
+      title: this.title,
+      description: this.description
+    };
+
+    this.dialogHidden = true;
+  }
+
+  operationSuccessful(event: number[]) {
+    this.getUserProfileData.emit({
+      userProfileBasicInfo: this.userProfileBasicInfo,
+      values: event,
+      dateCreated: new Date(),
+      lastModified: new Date()
+    });
   }
 }

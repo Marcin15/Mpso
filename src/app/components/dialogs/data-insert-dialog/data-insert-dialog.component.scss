@@ -20,15 +20,16 @@ $tooltip-height: 1.2rem;
     transform: translate(-50%, -50%);
     width: 400px;
     height: 80vh;
-}
-
-.dialog-wrapper {
-    position: relative;
-    width: 350px;
-    height: 60vh;
     background-color: #fff;
     border-radius: 1rem;
 }
+
+// .dialog-wrapper {
+//     position: relative;
+//     width: 350px;
+//     height: 60vh;
+
+// }
 
 .title-wrapper {
     display: flex;

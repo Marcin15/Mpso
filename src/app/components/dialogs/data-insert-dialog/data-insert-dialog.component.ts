@@ -1,10 +1,9 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { NgModel } from '@angular/forms';
-import { EventManager } from '@angular/platform-browser';
-import { fromEvent, Subscription } from 'rxjs';
-import { ProfileData } from 'src/app/models/profileData';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { fromEvent } from 'rxjs';
 import { DataInsertInput } from 'src/app/models/dataInsertInput';
-import { dragMode, keyCodes } from 'src/app/models/enums';
+import { dragMode } from 'src/app/models/enums';
+import { ProfileBasicInformation } from 'src/app/models/profileBasicInformation';
+import { ProfileData } from 'src/app/models/profileData';
 
 @Component({
   selector: 'app-data-insert-dialog',
@@ -14,7 +13,10 @@ import { dragMode, keyCodes } from 'src/app/models/enums';
 export class DataInsertDialogComponent implements AfterViewInit {
 
   @ViewChild('dataInsertTable') dataInsertTable!: ElementRef;
-  @Output() getProfileData = new EventEmitter<ProfileData>; 
+
+  // @Input() userProfileBasicInfo!: ProfileBasicInformation;
+
+  @Output() getProfileData = new EventEmitter<number[]>; 
   @Output() closeDialog = new EventEmitter;
 
   private _table!: HTMLTableElement;
@@ -24,7 +26,6 @@ export class DataInsertDialogComponent implements AfterViewInit {
     elementIndex: number
   };
   
-  title: string = 'Profile1';
   tableRowsArray: DataInsertInput[] = [
     {value: 1, isDragging: false}, 
     {value: 2, isDragging: false},
@@ -138,13 +139,9 @@ export class DataInsertDialogComponent implements AfterViewInit {
 
   // EVENTS EMITTERS:
   saveClick() {
-    this.getProfileData.emit({
-      title: this.title,
-      values: [1, 2, 3, 4, 5, 10],
-      description: 'desc',
-      dateCreated: new Date(),
-      lastModified: new Date()
-    });
+    console.log('witam');
+    
+    this.getProfileData.emit([1, 2, 3, 4, 5]);
   }
 
   closeDialogClick() {    

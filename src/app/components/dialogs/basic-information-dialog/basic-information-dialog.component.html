@@ -1,29 +1,43 @@
 <div class="overlay" (click)="closeDialogClick()"></div>
-<div class="container">
+<div class="container" [ngClass]="{ hidden: dialogHidden }">
     <div class="profile-title">
         <span>Set up your first profile!</span>
     </div>
     <div class="input-box-wrapper">
         <div class="title input-box">
             <input
+                #titleInput
+                class="user-data"
                 type="text"
                 required="required"
                 [(ngModel)]="title"
                 [ngClass]="{ 'not-empty': title }"
+                maxlength="35"
             />
-            <span>Title</span>
+            <span (click)="titleInputClick()">Title</span>
         </div>
         <div class="description input-box">
-            <input
+            <textarea
+                #descriptionTextarea
+                class="user-data"
                 type="text"
                 required="required"
                 [(ngModel)]="description"
                 [ngClass]="{ 'not-empty': description }"
-            />
-            <span>Description</span>
+                maxlength="230"
+            >
+            </textarea>
+            <span (click)="descriptionTextareaClick()">Description</span>
         </div>
     </div>
     <div class="submit-wrapper">
-        <button>Next</button>
+        <button (click)="submitClick()">Next</button>
     </div>
 </div>
+
+<app-data-insert-dialog
+    *ngIf="dialogHidden"
+    (closeDialog)="closeDialogClick()"
+    (getProfileData)="operationSuccessful($event)"
+>
+</app-data-insert-dialog>

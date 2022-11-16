@@ -17,6 +17,12 @@
     height: 335px;
     background-color: #fff;
     border-radius: 1rem;
+    transition: 300ms;
+
+    &.hidden {
+        transform: translateX(-400px) translateY(-50%);
+        opacity: 0;
+    }
 }
 
 .profile-title {
@@ -41,11 +47,13 @@
         justify-content: center;
         width: 80%;
     
-    &.description input{
-        height: 100px;
+    & textarea{
+        resize: none;
+        height: 105px;
+        overflow: hidden;
     }
 
-        input {
+        .user-data {
             width: 100%;
             padding: .8rem;
             border: 1px solid #000;
@@ -62,10 +70,15 @@
             padding: 10px;
             transition: 250ms;
             font-size: 1.2rem;
+            user-select: none;
+
+            &:hover {
+                cursor: text;
+            }
         }
 
-        & input:focus ~ span,
-        & input.not-empty ~ span{
+        & .user-data:focus ~ span,
+        & .user-data.not-empty ~ span {
             color: aqua;
             transform: translate(10px, -10px);
             font-size: .9rem;
@@ -73,7 +86,7 @@
             background-color: #fff;
         }
 
-        & input:focus {
+        & .user-data:focus {
             border-color: aqua;
         }
     }
