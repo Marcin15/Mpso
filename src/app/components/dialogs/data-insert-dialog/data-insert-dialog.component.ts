@@ -82,7 +82,7 @@ export class DataInsertDialogComponent implements AfterViewInit {
       elementIndex: index
     }
     
-    this.tableRowsArray[index].isDragging = true;
+    this.tableRowsArray[index].isDragging = true;    
   }
 
   dragEnd(index: number) {

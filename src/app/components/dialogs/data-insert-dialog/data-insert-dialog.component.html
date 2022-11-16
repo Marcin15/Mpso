@@ -1,59 +1,60 @@
 <div class="overlay" (click)="closeDialogClick()"></div>
 <div class="container">
-    <div class="title-wrapper">
-        <span>Set up your first profile!</span>
-    </div>
-    <table #dataInsertTable>
-        <colgroup>
-            <col span="1" style="width: 10%" />
-            <col span="1" style="width: 85%" />
-        </colgroup>
+    <!-- <div class="dialog-wrapper"> -->
+        <div class="title-wrapper">
+            <span>Fill in table with data</span>
+        </div>
+        <table #dataInsertTable>
+            <colgroup>
+                <col span="1" style="width: 15%" />
+                <col span="1" style="width: 75%" />
+            </colgroup>
 
-        <thead>
-            <th>No.</th>
-            <th>Values</th>
-            <th></th>
-        </thead>
-        <tbody (dragover)="dragOver($event)">
-            <ng-container
-                *ngFor="
-                    let item of tableRowsArray;
-                    let i = index;
-                    let last = last
-                "
-            >
-                <tr
-                    class="table-row"
-                    [ngClass]="{ dragging: item.isDragging }"
-                    draggable="true"
+            <thead>
+                <th>No.</th>
+                <th>Values</th>
+                <th></th>
+            </thead>
+            <tbody (dragover)="dragOver($event)">
+                <ng-container
+                    *ngFor="
+                        let item of tableRowsArray;
+                        let i = index;
+                        let last = last
+                    "
                 >
-                    <td class="No-row">
-                        <span>{{ i + 1 }}.</span>
-                    </td>
-                    <td class="input-row">
-                        <input
-                            type="number"
-                            [(ngModel)]="item.value"
-                            (keydown)="removeEmptyRow($event, i)"
-                        />
-                    </td>
-                    <td
-                        class="moveHandler"
+                    <tr
+                        [ngClass]="{ dragging: item.isDragging }"
                         draggable="true"
-                        (dragstart)="dragStart($event, i)"
-                        (dragend)="dragEnd(i)"
                     >
-                        <span>=</span>
-                        <div
-                            [ngClass]="{ 'insert-row-tooltip': !last }"
-                            (click)="insertNewRow(i)"
-                        ></div>
-                    </td>
-                </tr>
-            </ng-container>
-        </tbody>
-    </table>
-    <section class="footer">
-        <button class="save" (click)="saveClick()">Save</button>
-    </section>
+                        <td class="No-row">
+                            <span>{{ i + 1 }}.</span>
+                        </td>
+                        <td class="input-row">
+                            <input
+                                type="number"
+                                [(ngModel)]="item.value"
+                                (keydown)="removeEmptyRow($event, i)"
+                            />
+                        </td>
+                        <td
+                            class="moveHandler"
+                            draggable="true"
+                            (dragstart)="dragStart($event, i)"
+                            (dragend)="dragEnd(i)"
+                        >
+                            <span>=</span>
+                            <div
+                                [ngClass]="{ 'insert-row-tooltip': !last }"
+                                (click)="insertNewRow(i)"
+                            ></div>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+        <section class="footer">
+            <button class="save" (click)="saveClick()">Save</button>
+        </section>
+    <!-- </div> -->
 </div>

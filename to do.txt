@@ -1,7 +1,7 @@
 TO DO:
 -insert basic information dialog component:
     -create 'insert-basic-information-dialog-component' ✔
-    -pass data to insert data component
+    -pass data to insert data component ✔
 
 -insert data component: 
     -delete last empty row in insert data component ✔
