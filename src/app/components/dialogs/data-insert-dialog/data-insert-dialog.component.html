@@ -1,60 +1,78 @@
 <div class="overlay" (click)="closeDialogClick()"></div>
 <div class="container">
-    <!-- <div class="dialog-wrapper"> -->
-        <div class="title-wrapper">
+    <div class="dialog-wrapper"></div>
+    <div class="header-container">
+        <div class="header-wrapper">
+            <button class="header-button">
+                <span class="material-symbols-outlined">
+                    keyboard_backspace
+                </span>
+            </button>
             <span>Fill in table with data</span>
+            <button class="header-button right">
+                <span class="material-symbols-outlined"> close </span>
+            </button>
         </div>
-        <table #dataInsertTable>
-            <colgroup>
-                <col span="1" style="width: 15%" />
-                <col span="1" style="width: 75%" />
-            </colgroup>
-
-            <thead>
-                <th>No.</th>
-                <th>Values</th>
-                <th></th>
-            </thead>
-            <tbody (dragover)="dragOver($event)">
-                <ng-container
-                    *ngFor="
-                        let item of tableRowsArray;
-                        let i = index;
-                        let last = last
-                    "
-                >
-                    <tr
-                        [ngClass]="{ dragging: item.isDragging }"
-                        draggable="true"
+    </div>
+    <div class="table-wrapper">
+        <div class="test">
+            <table #dataInsertTable>
+                <colgroup>
+                    <col span="1" style="width: 10%" />
+                    <col span="1" style="width: 80%" />
+                </colgroup>
+                <thead>
+                    <th>No.</th>
+                    <th>Values</th>
+                    <th></th>
+                </thead>
+                <tbody (dragover)="dragOver($event)">
+                    <ng-container
+                        *ngFor="
+                            let item of tableRowsArray;
+                            let i = index;
+                            let last = last
+                        "
                     >
-                        <td class="No-row">
-                            <span>{{ i + 1 }}.</span>
-                        </td>
-                        <td class="input-row">
-                            <input
-                                type="number"
-                                [(ngModel)]="item.value"
-                                (keydown)="removeEmptyRow($event, i)"
-                            />
-                        </td>
-                        <td
-                            class="moveHandler"
-                            draggable="true"
-                            (dragstart)="dragStart($event, i)"
-                            (dragend)="dragEnd(i)"
-                        >
-                            <span>=</span>
-                            <div
-                                [ngClass]="{ 'insert-row-tooltip': !last }"
-                                (click)="insertNewRow(i)"
-                            ></div>
-                        </td>
-                    </tr>
-                </ng-container>
-            </tbody>
-        </table>
-        <section class="footer">
-            <button class="save" (click)="saveClick()">Save</button>
-        </section>
-    <!-- </div> -->
+                        <tr [ngClass]="{ dragging: item.isDragging }">
+                            <td class="No-row">
+                                <span>{{ i + 1 }}.</span>
+                            </td>
+                            <td class="input-row">
+                                <input
+                                    type="number"
+                                    placeholder="0"
+                                    [(ngModel)]="item.value"
+                                    (keydown)="removeEmptyRow($event, i)"
+                                />
+                            </td>
+                            <td
+                                class="moveHandler"
+                                draggable="true"
+                                (dragstart)="dragStart($event, i)"
+                                (dragend)="dragEnd(i)"
+                            >
+                                <span>=</span>
+                                <div
+                                    [ngClass]="{ 'insert-row-tooltip': !last }"
+                                    (click)="insertNewRow(i)"
+                                >
+                                    <span
+                                        *ngIf="!last"
+                                        class="material-symbols-outlined"
+                                    >
+                                        add_circle
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="footer">
+        <span class="line-separator"></span>
+        <button class="save" (click)="saveClick()">Save</button>
+    </div>
 </div>

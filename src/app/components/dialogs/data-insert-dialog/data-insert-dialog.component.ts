@@ -27,11 +27,6 @@ export class DataInsertDialogComponent implements AfterViewInit {
   };
   
   tableRowsArray: DataInsertInput[] = [
-    {value: 1, isDragging: false}, 
-    {value: 2, isDragging: false},
-    {value: 3, isDragging: false},
-    {value: 4, isDragging: false},
-    {value: 5, isDragging: false},
     {value: null, isDragging: false},
   ];
 

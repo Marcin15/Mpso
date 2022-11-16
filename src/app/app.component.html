@@ -1,4 +1,4 @@
-<ng-container *ngIf="selectedProfile; else noChartDataTemplate">
+<!-- <ng-container *ngIf="selectedProfile; else noChartDataTemplate">
   <div class="selectedProfile">
     <div class="add-new-wrapper">
       <button>Manage profiles</button>
@@ -22,7 +22,7 @@
 <app-basic-information-dialog *ngIf="showDataInsertDialog" 
                               (closeDialog)="showDataInsertDialog = false"
                               (getUserProfileData)="getProfileData($event)">
-</app-basic-information-dialog>
+</app-basic-information-dialog> -->
 
 <!--
 <app-data-manager *ngIf="!showDataInsertComponent" 
@@ -32,3 +32,7 @@
 <!-- <app-data-insert>
 
 </app-data-insert> -->
+
+<app-data-insert-dialog>
+  
+</app-data-insert-dialog>
