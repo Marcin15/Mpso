@@ -86,7 +86,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
           },
           title: {
             display: true,
-            text: 'Profile1',
+            text: this.title,
             font: {
               size: 18
             }

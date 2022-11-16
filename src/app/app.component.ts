@@ -18,6 +18,8 @@ export class AppComponent {
   }
 
   getProfileData(event: ProfileData) {
+    console.log(event);
+    
     this.profileData.push(event);
     this.showDataInsertDialog = false;
 

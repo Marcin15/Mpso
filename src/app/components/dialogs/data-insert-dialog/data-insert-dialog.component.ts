@@ -133,11 +133,15 @@ export class DataInsertDialogComponent implements AfterViewInit {
     }
   }
 
+  private getValuesFormElementArray(): number[] {
+    return this.tableRowsArray
+          .filter(x => x.value !== null)
+          .map(x => x.value) as number[];
+  }
+
   // EVENTS EMITTERS:
-  saveClick() {
-    console.log('witam');
-    
-    this.getProfileData.emit([1, 2, 3, 4, 5]);
+  saveClick() {    
+    this.getProfileData.emit(this.getValuesFormElementArray());
   }
 
   closeDialogClick() {    

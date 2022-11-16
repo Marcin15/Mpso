@@ -1,5 +1,4 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { ProfileBasicInformation } from 'src/app/models/profileBasicInformation';
 import { ProfileData } from 'src/app/models/profileData';
 
 @Component({
@@ -13,11 +12,11 @@ export class BasicInformationDialogComponent implements OnInit {
   @ViewChild('descriptionTextarea') descriptionTextarea!: ElementRef<HTMLTextAreaElement>;
 
   @Output() getUserProfileData = new EventEmitter<ProfileData>; 
-  userProfileBasicInfo!: ProfileBasicInformation;
   dialogHidden = false;
 
   @Output() closeDialog = new EventEmitter;
   
+  //NgModel:
   title!: string;
   description!: string;
 
@@ -39,17 +38,13 @@ export class BasicInformationDialogComponent implements OnInit {
   }
 
   submitClick() {
-    this.userProfileBasicInfo = {
-      title: this.title,
-      description: this.description
-    };
-
     this.dialogHidden = true;
   }
 
   operationSuccessful(event: number[]) {
     this.getUserProfileData.emit({
-      userProfileBasicInfo: this.userProfileBasicInfo,
+      title: this.title,
+      description: this.description,
       values: event,
       dateCreated: new Date(),
       lastModified: new Date()
