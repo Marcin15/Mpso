@@ -16,7 +16,7 @@
     </div>
     <div class="table-wrapper">
         <div class="test">
-            <table #dataInsertTable>
+            <table >
                 <colgroup>
                     <col span="1" style="width: 10%" />
                     <col span="1" style="width: 80%" />
@@ -43,6 +43,7 @@
                                     type="number"
                                     placeholder="0"
                                     [(ngModel)]="item.value"
+                                    (ngModelChange)="onNgModelChange($event, i)"
                                     (keydown)="removeEmptyRow($event, i)"
                                 />
                             </td>

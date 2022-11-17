@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { fromEvent, merge } from 'rxjs';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { DataInsertInput } from 'src/app/models/dataInsertInput';
 import { dragMode } from 'src/app/models/enums';
 
@@ -8,7 +7,7 @@ import { dragMode } from 'src/app/models/enums';
   templateUrl: './data-insert-dialog.component.html',
   styleUrls: ['./data-insert-dialog.component.scss']
 })
-export class DataInsertDialogComponent implements AfterViewInit {
+export class DataInsertDialogComponent {
 
   @ViewChild('dataInsertTable') dataInsertTable!: ElementRef;
 
@@ -16,8 +15,7 @@ export class DataInsertDialogComponent implements AfterViewInit {
   @Output() backToPreviousDialog = new EventEmitter;
   @Output() closeDialog = new EventEmitter;
 
-  private _table!: HTMLTableElement;
-  private _allowedCharacters = '1234567890,.';
+  private _allowedCharacters = [...'1234567890,.'];
   private _draggingElement!: {
     element: HTMLDivElement,
     elementIndex: number
@@ -28,36 +26,6 @@ export class DataInsertDialogComponent implements AfterViewInit {
   ];
 
   constructor() { }
-
-  ngAfterViewInit(): void {
-    this._table = this.dataInsertTable.nativeElement;
-
-    this.AppendEventToTheLastInput();
-  }
-  
-  private AppendEventToTheLastInput() {
-    let lastInput = this._table.rows[this.tableRowsArray.length - 1] as HTMLTableRowElement;
-
-    const keyDownEvent$ = fromEvent(lastInput, 'keydown');
-    const pasteEvent$ = fromEvent(lastInput, 'paste');
-
-    const subscription = merge(keyDownEvent$, pasteEvent$).subscribe((event) => {
-      let keyboardEvent = event as KeyboardEvent;
-      let clipboardEvent = event as ClipboardEvent;      
-
-      if(this._allowedCharacters.includes(keyboardEvent.key) || 
-         this._allowedCharacters.includes(clipboardEvent.clipboardData?.getData('text') as string)) 
-         {
-
-        this.addNewRow();
-        subscription.unsubscribe();
-
-        setTimeout(() => { 
-          this.AppendEventToTheLastInput(); //recursion HAVE TO be delayed in race condition
-        }, 0);
-      }
-    });
-  }
 
   insertNewRow(index: number) {
     this.tableRowsArray.splice(index, 0, {
@@ -71,6 +39,14 @@ export class DataInsertDialogComponent implements AfterViewInit {
       value: null,
       isDragging: false
     })
+  }
+
+  onNgModelChange(event: string, index: number) {  
+    if(!(index === this.tableRowsArray.length - 1)) return;
+    if(event === null) return;    
+    if(![...event.toString()].every(x => this._allowedCharacters.indexOf(x) >= 0)) return;
+      
+    this.addNewRow();
   }
 
   dragStart(event: DragEvent, index: number) {
