@@ -1,7 +1,7 @@
 <ng-container *ngIf="selectedProfile; else noChartDataTemplate">
   <div class="selectedProfile">
     <div class="add-new-wrapper">
-      <button>Manage profiles</button>
+      <button (click)="showDataManagerDialog = true" >Manage profiles</button>
     </div>
     <div class="chart">
       <app-chart [values]="selectedProfile.values"
@@ -25,10 +25,11 @@
 </app-basic-information-dialog> 
 
 
-<!-- <app-data-manager *ngIf="!showDataInsertComponent" 
-              (hideComponent)="showDataInsertComponent = false" >
+ <app-data-manager *ngIf="showDataManagerDialog" 
+              (hideComponent)="showDataManagerDialog = false" >
 </app-data-manager>
 
+<!--
 <app-data-insert>
 
 </app-data-insert>  --> 

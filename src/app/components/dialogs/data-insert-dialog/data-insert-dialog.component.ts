@@ -1,9 +1,7 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { fromEvent, merge } from 'rxjs';
 import { DataInsertInput } from 'src/app/models/dataInsertInput';
 import { dragMode } from 'src/app/models/enums';
-import { ProfileBasicInformation } from 'src/app/models/profileBasicInformation';
-import { ProfileData } from 'src/app/models/profileData';
 
 @Component({
   selector: 'app-data-insert-dialog',
@@ -13,8 +11,6 @@ import { ProfileData } from 'src/app/models/profileData';
 export class DataInsertDialogComponent implements AfterViewInit {
 
   @ViewChild('dataInsertTable') dataInsertTable!: ElementRef;
-
-  // @Input() userProfileBasicInfo!: ProfileBasicInformation;
 
   @Output() getProfileData = new EventEmitter<number[]>; 
   @Output() backToPreviousDialog = new EventEmitter;
@@ -26,7 +22,7 @@ export class DataInsertDialogComponent implements AfterViewInit {
     element: HTMLDivElement,
     elementIndex: number
   };
-  
+
   tableRowsArray: DataInsertInput[] = [
     {value: null, isDragging: false},
   ];
@@ -41,12 +37,20 @@ export class DataInsertDialogComponent implements AfterViewInit {
   
   private AppendEventToTheLastInput() {
     let lastInput = this._table.rows[this.tableRowsArray.length - 1] as HTMLTableRowElement;
-    
-    const lastInputEventSubscription = fromEvent(lastInput, 'keydown').subscribe((event) => {
-      let keyboarEvent = event as KeyboardEvent;
-      if(this._allowedCharacters.includes(keyboarEvent.key)) {
+
+    const keyDownEvent$ = fromEvent(lastInput, 'keydown');
+    const pasteEvent$ = fromEvent(lastInput, 'paste');
+
+    const subscription = merge(keyDownEvent$, pasteEvent$).subscribe((event) => {
+      let keyboardEvent = event as KeyboardEvent;
+      let clipboardEvent = event as ClipboardEvent;      
+
+      if(this._allowedCharacters.includes(keyboardEvent.key) || 
+         this._allowedCharacters.includes(clipboardEvent.clipboardData?.getData('text') as string)) 
+         {
+
         this.addNewRow();
-        lastInputEventSubscription.unsubscribe();
+        subscription.unsubscribe();
 
         setTimeout(() => { 
           this.AppendEventToTheLastInput(); //recursion HAVE TO be delayed in race condition

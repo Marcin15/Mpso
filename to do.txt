@@ -15,7 +15,7 @@ TO DO:
     -add validation (min 5 rows should be accepted)
 
 -chart component:
-    -fix comunication between chart component and parent
+    -fix comunication between chart component and parent ✔
 
 -profile manager component:
     -display profile manager component on button click

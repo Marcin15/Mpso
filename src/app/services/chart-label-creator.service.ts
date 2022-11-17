@@ -14,13 +14,9 @@ export class ChartLabelCreatorService {
 
     let result: number[] = [];
 
-    data.forEach((element, index) => {
-      console.log(`${element} + ${index}`);
-      
+    data.forEach((element, index) => {      
       result.push(index);
     });
-
-    console.log(result);
 
     return result;
   }

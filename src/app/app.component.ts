@@ -12,6 +12,7 @@ export class AppComponent implements OnInit{
   profileData: ProfileData[] = [];
   selectedProfile!: ProfileData;
   showDataInsertDialog: boolean = false;
+  showDataManagerDialog: boolean = false;
 
   constructor(private localStorageRepo: LocalStorageRepositoryService) {
     
