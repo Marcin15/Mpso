@@ -22,7 +22,7 @@ import { DataManagerItemComponent } from './components/dialogs/data-manager-dial
   imports: [
     BrowserModule,
     FormsModule,
-    NgChartsModule
+    NgChartsModule,
   ],
   providers: [
     { provide: NgChartsConfiguration, useValue: { generateColors: false } }

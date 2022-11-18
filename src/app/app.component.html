@@ -1,4 +1,4 @@
-<!-- <ng-container *ngIf="selectedProfile; else noChartDataTemplate">
+<ng-container *ngIf="selectedProfile; else noChartDataTemplate">
     <div class="selectedProfile">
         <div class="add-new-wrapper">
             <button (click)="showDataManagerDialog = true">
@@ -35,11 +35,11 @@
 
 <app-data-manager
     *ngIf="showDataManagerDialog"
-    [userData]="profileData"
+    [userDataArray]="profileDataArray"
     (hideComponent)="showDataManagerDialog = false"
 >
-</app-data-manager> -->
-
-<app-data-manager [userDataArray]="profileDataArray">
-
 </app-data-manager>
+
+<!-- <app-data-manager [userDataArray]="profileDataArray">
+
+</app-data-manager> -->

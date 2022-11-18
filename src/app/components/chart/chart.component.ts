@@ -10,6 +10,9 @@ import { BaseChartDirective } from 'ng2-charts';
 import { ChartLabelCreatorService } from 'src/app/services/chart-label-creator.service';
 import { MovingAverangeService } from 'src/app/services/moving-averange.service';
 
+import * as TrendlineLinearPlugin from 'chartjs-plugin-trendline';
+import { TrendLineCalculatorService } from 'src/app/services/trend-line-calculator.service';
+
 @Component({
     selector: 'app-chart',
     templateUrl: './chart.component.html',
@@ -19,7 +22,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     @Input() values!: number[];
     @Input() title!: string;
 
-    @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+    @ViewChild(BaseChartDirective) chart!: BaseChartDirective;
 
     private threePointMovingAverange!: number[];
     private fourPointMovingAverange!: number[];
@@ -27,10 +30,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
     public chartType!: ChartType;
     public chartData!: ChartConfiguration['data'];
     public chartOptions!: ChartConfiguration['options'];
+    public chartPlugins = [TrendlineLinearPlugin];
 
     constructor(
         private chartLabelCreator: ChartLabelCreatorService,
-        private movingAverangeService: MovingAverangeService
+        private movingAverangeService: MovingAverangeService,
+        private trendLineService: TrendLineCalculatorService
     ) {}
 
     ngAfterViewInit(): void {
@@ -39,7 +44,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
             this.chartData = this.getChartData();
             this.chartOptions = this.getChartOptions();
         });
-
     }
 
     ngOnInit(): void {
@@ -60,26 +64,37 @@ export class ChartComponent implements OnInit, AfterViewInit {
                     data: this.values,
                     label: 'Base data',
                 },
+                // {
+                //     data: this.threePointMovingAverange,
+                //     label: 'Three point moving averange',
+                //     backgroundColor: 'rgba(148,159,177,0.2)',
+                //     borderColor: 'blue',
+                //     pointBackgroundColor: 'rgba(148,159,177,1)',
+                //     pointBorderColor: '#fff',
+                //     pointHoverBackgroundColor: '#fff',
+                //     pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+
+                // },
+                // {
+                //     data: this.fourPointMovingAverange,
+                //     offset: 1,
+                //     label: 'Four point moving averange',
+                //     backgroundColor: 'rgba(148,159,177,0.2)',
+                //     borderColor: 'red',
+                //     pointBackgroundColor: 'rgba(148,159,177,1)',
+                //     pointBorderColor: '#fff',
+                //     pointHoverBackgroundColor: '#fff',
+                //     pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+                // },
                 {
-                    data: this.threePointMovingAverange,
-                    label: 'Three point moving averange',
-                    backgroundColor: 'rgba(148,159,177,0.2)',
-                    borderColor: 'blue',
-                    pointBackgroundColor: 'rgba(148,159,177,1)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-                },
-                {
-                    data: this.fourPointMovingAverange,
-                    label: 'Four point moving averange',
-                    backgroundColor: 'rgba(148,159,177,0.2)',
+                    label: 'trend',
+                    data: this.trendLineService.getTrendLine(this.values).values,
+                    fill: false,
+                    borderWidth: 2,
                     borderColor: 'red',
-                    pointBackgroundColor: 'rgba(148,159,177,1)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-                },
+                    borderDash: [0, 1, 8],
+                    spanGaps: true
+                }
             ],
             labels: this.chartLabelCreator.createLabel(this.values),
         };
@@ -103,14 +118,15 @@ export class ChartComponent implements OnInit, AfterViewInit {
                 },
                 y: {
                     position: 'left',
+                    beginAtZero: true,
                 },
             },
 
             plugins: {
-
                 legend: {
-                    display: false,
-                    position: 'right',
+                    display: true,
+                    position: 'bottom',
+                    align: 'center',
                 },
                 title: {
                     display: true,
