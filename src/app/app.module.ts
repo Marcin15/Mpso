@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
-import { ChartComponent } from './components/chart/chart.component';
-import { DataManagerDialogComponent } from './components/dialogs/data-manager-dialog/data-manager-dialog.component';
-import { DataInsertDialogComponent } from './components/dialogs/data-insert-dialog/data-insert-dialog.component';
 import { FormsModule } from '@angular/forms';
 import { NgChartsConfiguration, NgChartsModule } from 'ng2-charts';
+import { AppComponent } from './app.component';
+import { ChartComponent } from './components/chart/chart.component';
 import { BasicInformationDialogComponent } from './components/dialogs/basic-information-dialog/basic-information-dialog.component';
+import { DataInsertDialogComponent } from './components/dialogs/data-edit-dialog/data-edit-dialog.component';
+import { DataManagerDialogComponent } from './components/dialogs/data-manager-dialog/data-manager-dialog.component';
 import { DataManagerItemComponent } from './components/dialogs/data-manager-dialog/data-manager-item/data-manager-item.component';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { DataManagerItemComponent } from './components/dialogs/data-manager-dial
     DataManagerDialogComponent,
     DataInsertDialogComponent,
     BasicInformationDialogComponent,
-    DataManagerItemComponent
+    DataManagerItemComponent,
   ],
   imports: [
     BrowserModule,

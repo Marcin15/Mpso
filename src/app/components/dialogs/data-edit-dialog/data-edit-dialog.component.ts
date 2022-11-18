@@ -3,9 +3,9 @@ import { DataInsertInput } from 'src/app/models/dataInsertInput';
 import { dragMode } from 'src/app/models/enums';
 
 @Component({
-  selector: 'app-data-insert-dialog',
-  templateUrl: './data-insert-dialog.component.html',
-  styleUrls: ['./data-insert-dialog.component.scss']
+  selector: 'app-data-edit-dialog',
+  templateUrl: './data-edit-dialog.component.html',
+  styleUrls: ['./data-edit-dialog.component.scss']
 })
 export class DataInsertDialogComponent {
 

@@ -35,10 +35,10 @@
     </div>
 </div>
 
-<app-data-insert-dialog
+<app-data-edit-dialog
     *ngIf="dialogHidden"
     (backToPreviousDialog)="dialogHidden = false"
     (closeDialog)="closeDialogClick()"
     (getProfileData)="operationSuccessful($event)"
 >
-</app-data-insert-dialog>
+</app-data-edit-dialog>

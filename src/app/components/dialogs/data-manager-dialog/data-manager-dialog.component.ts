@@ -12,6 +12,8 @@ export class DataManagerDialogComponent implements OnInit {
 
   @Output() hideComponent = new EventEmitter<boolean>();
   @Output() update = new EventEmitter<ProfileData>();
+
+  showDataInsertDialog = false;
   constructor() { }
 
   ngOnInit(): void {
@@ -23,7 +25,9 @@ export class DataManagerDialogComponent implements OnInit {
 
   editDataManagerItem(event: ProfileData) {
     let item = this.userDataArray.findIndex(x => x.dateCreated === event.dateCreated);
-    
+    this.showDataInsertDialog = true;
+
+    return item;
   }
 
   removeDataManagerItem(event: ProfileData) {
