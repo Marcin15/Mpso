@@ -1,12 +1,14 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ProfileData } from 'src/app/models/profileData';
 
 @Component({
-  selector: 'app-basic-information-dialog',
+  selector: 'app-basic-information-dialog[profileData]',
   templateUrl: './basic-information-dialog.component.html',
   styleUrls: ['./basic-information-dialog.component.scss']
 })
 export class BasicInformationDialogComponent implements OnInit {
+
+  @Input() profileData!: ProfileData | null;
 
   @ViewChild('titleInput') titleInput!: ElementRef<HTMLInputElement>;
   @ViewChild('descriptionTextarea') descriptionTextarea!: ElementRef<HTMLTextAreaElement>;
@@ -23,6 +25,14 @@ export class BasicInformationDialogComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.setInitialValues();
+  }
+
+  setInitialValues() {
+    if(this.profileData === null) return;
+
+    this.title = this.profileData!.title;
+    this.description = this.profileData!.description;
   }
 
   titleInputClick(){

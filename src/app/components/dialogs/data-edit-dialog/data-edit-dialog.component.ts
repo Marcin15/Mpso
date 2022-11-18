@@ -1,15 +1,18 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { DataInsertInput } from 'src/app/models/dataInsertInput';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { DataInsertInput as DataEditInput } from 'src/app/models/dataInsertInput';
 import { dragMode } from 'src/app/models/enums';
+import { ProfileData } from 'src/app/models/profileData';
 
 @Component({
-  selector: 'app-data-edit-dialog',
+  selector: 'app-data-edit-dialog[profileData]',
   templateUrl: './data-edit-dialog.component.html',
   styleUrls: ['./data-edit-dialog.component.scss']
 })
-export class DataInsertDialogComponent {
+export class DataInsertDialogComponent implements OnInit{
 
   @ViewChild('dataInsertTable') dataInsertTable!: ElementRef;
+
+  @Input() profileData!: ProfileData | null;
 
   @Output() getProfileData = new EventEmitter<number[]>; 
   @Output() backToPreviousDialog = new EventEmitter;
@@ -21,11 +24,31 @@ export class DataInsertDialogComponent {
     elementIndex: number
   };
 
-  tableRowsArray: DataInsertInput[] = [
+  tableRowsArray: DataEditInput[] = [
     {value: null, isDragging: false},
   ];
 
   constructor() { }
+
+  ngOnInit(): void {
+    this.setInitialValues();
+  }
+
+  setInitialValues() {
+    if(this.profileData === null) return;
+
+    this.tableRowsArray = this.profileData!.values.map(x =>{
+      return {
+        value: x,
+        isDragging: false
+      } as DataEditInput
+    });
+
+    this.tableRowsArray.push({
+      value: null,
+      isDragging: false
+    })
+  }
 
   insertNewRow(index: number) {
     this.tableRowsArray.splice(index, 0, {

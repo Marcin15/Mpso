@@ -25,6 +25,7 @@
                 [(ngModel)]="description"
                 [ngClass]="{ 'not-empty': description }"
                 maxlength="230"
+                [value]="profileData?.description"
             >
             </textarea>
             <span (click)="descriptionTextareaClick()">Description</span>
@@ -40,5 +41,6 @@
     (backToPreviousDialog)="dialogHidden = false"
     (closeDialog)="closeDialogClick()"
     (getProfileData)="operationSuccessful($event)"
+    [profileData]="profileData"
 >
 </app-data-edit-dialog>

@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
         this.profileDataArray.push({
             title: 'Title 1',
             description: 'desc1',
-            values: [],
+            values: [23, 123.12, 1],
             dateCreated: new Date(),
             lastModified: new Date(),
         });

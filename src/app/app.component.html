@@ -30,6 +30,7 @@
     *ngIf="showDataInsertDialog"
     (closeDialog)="showDataInsertDialog = false"
     (getUserProfileData)="getProfileData($event)"
+    [profileData]="profileDataArray[0]"
 >
 </app-basic-information-dialog>
 
