@@ -6,47 +6,83 @@ $bg: rgba(238, 238, 238, 1);
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(102, 102, 102, .5);
+    background-color: rgba(102, 102, 102, 0.5);
 }
 
-.container{
+.content-wrapper {
     position: fixed;
-    width: 90%;
+    width: 95%;
     height: 80%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    display: flex;
     background-color: $bg;
     border-radius: 1rem;
+    box-shadow: 0 0 10px 3px #666;
 }
 
 .header {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
-    height: 20%;
+    height: 15%;
 
+    .close {
+        margin-top: .3rem;
+        margin-right: .3rem;
+    }
+
+    button {
+        position: relative;
+        outline: none;
+        border: none;
+        border-radius: 50%;
+        background-color: #ccc;
+        padding: 0.8rem;
+        width: 3rem;
+        height: 3rem;
+        cursor: pointer;
+
+        .material-symbols-outlined {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.1rem;
+        }
+    }
 
     .button-wrapper {
         display: flex;
         margin-top: 1rem;
         margin-left: 1rem;
-        gap: 1.6rem;
-
-        button {
-            outline: none;
-            border: none;
-            border-radius: .8rem;
-            background-color: #ccc;
-            padding: .8rem;
-            width: 8rem;
-            font-size: 1.1rem;
-            cursor: pointer;
-        }
+        gap: 1.2rem;
     }
 
     .line {
         width: 100%;
-        height: .3rem;
-        background: linear-gradient(180deg, $bg 0%, rgba(90,90,90,1) 50%, $bg 100%);
+        height: 0.3rem;
+        background: linear-gradient(
+            180deg,
+            $bg 0%,
+            rgba(90, 90, 90, 1) 50%,
+            $bg 100%
+        );
     }
+}
+
+.overflow-wrapper {
+    overflow: hidden;
+    height: 85%;
+    // background-color: red;
+    overflow: auto;
+}
+
+.data-manager-items-container {
+    display: grid;
+    width: 95%;
+    margin: 18px auto;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    column-gap: 3rem;
+    row-gap: 2rem;
 }

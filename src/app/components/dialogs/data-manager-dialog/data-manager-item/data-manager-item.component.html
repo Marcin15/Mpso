@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="content-wrapper">
+        <div class="flexbox-wrapper upper">
+            <div class="button-wrapper">
+                <button class="edit">
+                    <span class="material-symbols-outlined"> edit </span>
+                </button>
+                <button class="remove">
+                    <span class="material-symbols-outlined"> close </span>
+                </button>
+            </div>
+            <div class="title-wrapper">
+                <span>{{ profileData.title }}</span>
+            </div>
+            <div class="description-wrapper">
+                <span>
+                    {{ profileData.description }}
+                </span>
+            </div>
+        </div>
+        <div class="flexbox-wrapper lower">
+            <div class="date-wrapper">
+                <div class="date-created">
+                    <span>Created: {{ profileData.dateCreated | date:'yyyy.MM.dd / HH:mm:ss'}}</span>
+                </div>
+                <div class="last-modified">
+                    <span>Last modified: {{ profileData.lastModified | date:'yyyy.MM.dd / HH:mm:ss'}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

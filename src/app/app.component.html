@@ -1,35 +1,45 @@
-<ng-container *ngIf="selectedProfile; else noChartDataTemplate">
-  <div class="selectedProfile">
-    <div class="add-new-wrapper">
-      <button (click)="showDataManagerDialog = true" >Manage profiles</button>
+<!-- <ng-container *ngIf="selectedProfile; else noChartDataTemplate">
+    <div class="selectedProfile">
+        <div class="add-new-wrapper">
+            <button (click)="showDataManagerDialog = true">
+                Manage profiles
+            </button>
+        </div>
+        <div class="chart">
+            <app-chart
+                [values]="selectedProfile.values"
+                [title]="selectedProfile.title"
+            >
+            </app-chart>
+        </div>
     </div>
-    <div class="chart">
-      <app-chart [values]="selectedProfile.values"
-                 [title]="selectedProfile.title">
-    </app-chart>
-    </div>
-  </div>
 </ng-container>
 
 <ng-template #noChartDataTemplate>
-  <div class="no-chart-data-template">
-    <span>It seems you haven't added any data yet <p>🤔</p></span>
+    <div class="no-chart-data-template">
+        <span
+            >It seems you haven't added any data yet
+            <p>🤔</p></span
+        >
 
-    <button (click)="showDataInsertDialog = true">Add data!</button>
-  </div>
+        <button (click)="showDataInsertDialog = true">Add data!</button>
+    </div>
 </ng-template>
 
-<app-basic-information-dialog *ngIf="showDataInsertDialog" 
-                              (closeDialog)="showDataInsertDialog = false"
-                              (getUserProfileData)="getProfileData($event)">
-</app-basic-information-dialog> 
+<app-basic-information-dialog
+    *ngIf="showDataInsertDialog"
+    (closeDialog)="showDataInsertDialog = false"
+    (getUserProfileData)="getProfileData($event)"
+>
+</app-basic-information-dialog>
 
+<app-data-manager
+    *ngIf="showDataManagerDialog"
+    [userData]="profileData"
+    (hideComponent)="showDataManagerDialog = false"
+>
+</app-data-manager> -->
 
- <app-data-manager *ngIf="showDataManagerDialog" 
-              (hideComponent)="showDataManagerDialog = false" >
+<app-data-manager [userDataArray]="profileDataArray">
+
 </app-data-manager>
-
-<!--
-<app-data-insert>
-
-</app-data-insert>  --> 
