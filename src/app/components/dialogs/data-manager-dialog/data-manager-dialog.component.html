@@ -28,6 +28,8 @@
                 <app-data-manager-item
                     *ngFor="let item of userDataArray"
                     [profileData]="item"
+                    (edit)="editDataManagerItem($event)"
+                    (remove)="removeDataManagerItem($event)"
                 >
                 </app-data-manager-item>
             </div>

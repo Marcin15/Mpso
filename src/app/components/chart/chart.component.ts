@@ -92,8 +92,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
                     fill: false,
                     borderWidth: 2,
                     borderColor: 'red',
+                    pointRadius: 0,
                     borderDash: [0, 1, 8],
-                    spanGaps: true
+                    spanGaps: true,
+                    hidden: true
                 }
             ],
             labels: this.chartLabelCreator.createLabel(this.values),

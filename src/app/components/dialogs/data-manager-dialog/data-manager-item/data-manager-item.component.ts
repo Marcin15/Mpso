@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProfileData } from 'src/app/models/profileData';
 
 @Component({
@@ -9,10 +9,20 @@ import { ProfileData } from 'src/app/models/profileData';
 export class DataManagerItemComponent implements OnInit {
 
   @Input() profileData!: ProfileData;
+  @Output() remove = new EventEmitter<ProfileData>();
+  @Output() edit = new EventEmitter<ProfileData>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  editButtonClick() {
+    this.edit.emit(this.profileData);
+  }
+  
+  removeButtonClick() {
+    this.remove.emit(this.profileData);
   }
 
 }
