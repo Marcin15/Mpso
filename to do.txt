@@ -18,8 +18,10 @@ TO DO:
     -fix comunication between chart component and parent ✔
 
 -profile manager component:
-    -display profile manager component on button click
-    -allow edit and delete profiles
+    -display profile manager component on button click ✔
+    -allow edit and delete profiles ✔
 
 -other:
     -create busines logic services
+    -fix dataStorage logic
+    -add "Are you sure you want do this" dialogs when removing data

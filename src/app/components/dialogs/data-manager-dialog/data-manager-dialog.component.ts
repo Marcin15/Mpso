@@ -14,7 +14,7 @@ export class DataManagerDialogComponent implements OnInit {
   @Output() update = new EventEmitter<ProfileData>();
 
   basicInformationDialogHidden = true;
-  editingProfileData!: ProfileData;
+  editingProfileData!: ProfileData | null;
 
   private editingProfileDataIndex!: number;
 
@@ -46,13 +46,27 @@ export class DataManagerDialogComponent implements OnInit {
   }
 
   updateUserProfileData(event: ProfileData) {
-    this.userDataArray[this.editingProfileDataIndex] = event;
-    this.basicInformationDialogHidden = true;
+    this.updateUserProfileDataArray(event);
     this.clearEditingUserProfileData();
+    this.basicInformationDialogHidden = true;
   }
 
-  clearEditingUserProfileData() {
+  private updateUserProfileDataArray(data: ProfileData) {
+    if(this.editingProfileData === null) {
+      this.userDataArray.push(data);
+      return;
+    }
+    
+    this.userDataArray[this.editingProfileDataIndex] = data;
+  }
+
+  private clearEditingUserProfileData() {
     this.editingProfileData = {} as ProfileData;
     this.editingProfileDataIndex = {} as number;
+  }
+
+  addNewProfileData() {
+    this.editingProfileData = null;
+    this.basicInformationDialogHidden = false;
   }
 }

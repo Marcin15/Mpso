@@ -5,5 +5,6 @@ export interface ProfileData {
     description: string
     values: number[],
     dateCreated: Date,
+    isModifiled: boolean
     lastModified: Date
 }

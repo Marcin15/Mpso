@@ -59,14 +59,22 @@ export class BasicInformationDialogComponent implements OnInit {
       description: this.description,
       values: event,
       dateCreated: this.getDateCreated(),
+      isModifiled: this.isModified(),
       lastModified: new Date()
     });
   }
 
-  getDateCreated(): Date {
+  private getDateCreated(): Date {
     if(this.profileData === null)
       return new Date();
 
       return this.profileData.dateCreated;
+  }
+
+  private isModified(): boolean {
+    if(this.profileData === null)
+      return false;
+
+    return true;
   }
 }
