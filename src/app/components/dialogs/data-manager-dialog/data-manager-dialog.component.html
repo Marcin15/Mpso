@@ -18,7 +18,9 @@
             </div>
             <div class="flexbox-wapper rigth">
                 <div class="vertical-aligner">
-                    <button class="close"><span class="material-symbols-outlined"> close </span></button>
+                    <button class="close">
+                        <span class="material-symbols-outlined"> close </span>
+                    </button>
                 </div>
             </div>
             <!-- <p class="line"></p> -->
@@ -36,3 +38,11 @@
         </div>
     </div>
 </div>
+
+<app-basic-information-dialog
+    *ngIf="!basicInformationDialogHidden"
+    [profileData]="editingProfileData"
+    (closeDialog)="closeBasicInformationDialog()"
+    (getUserProfileData)="updateUserProfileData($event)"
+>
+</app-basic-information-dialog>

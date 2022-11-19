@@ -22,97 +22,6 @@ export class AppComponent implements OnInit {
             this.profileDataArray = localStorageResult as ProfileData[];
             this.setDefaultProfile();
         }
-        this.profileDataArray.push({
-            title: 'Title 1',
-            description: 'desc1',
-            values: [23, 123.12, 1],
-            dateCreated: new Date(),
-            lastModified: new Date(),
-        });
-        this.profileDataArray.push({
-            title: 'Title 2',
-            description: 'desc2',
-            values: [],
-            dateCreated: new Date(),
-            lastModified: new Date(),
-        });
-        this.profileDataArray.push({
-            title: 'Title 3',
-            description: 'desc3',
-            values: [],
-            dateCreated: new Date(),
-            lastModified: new Date(),
-        });
-        this.profileDataArray.push({
-            title: 'Title 4',
-            description: 'desc4',
-            values: [],
-            dateCreated: new Date(),
-            lastModified: new Date(),
-        });
-        this.profileDataArray.push({
-            title: 'Title 5',
-            description: 'desc5',
-            values: [],
-            dateCreated: new Date(),
-            lastModified: new Date(),
-        });
-        this.profileDataArray.push({
-            title: 'Title 5',
-            description: 'desc5',
-            values: [],
-            dateCreated: new Date(),
-            lastModified: new Date(),
-        });
-        this.profileDataArray.push({
-            title: 'Title 5',
-            description: 'desc5',
-            values: [],
-            dateCreated: new Date(),
-            lastModified: new Date(),
-        });
-        this.profileDataArray.push({
-            title: 'Title 5',
-            description: 'desc5',
-            values: [],
-            dateCreated: new Date(),
-            lastModified: new Date(),
-        });
-        this.profileDataArray.push({
-            title: 'Title 5',
-            description: 'desc5',
-            values: [],
-            dateCreated: new Date(),
-            lastModified: new Date(),
-        });
-        this.profileDataArray.push({
-            title: 'Title 5',
-            description: 'desc5',
-            values: [],
-            dateCreated: new Date(),
-            lastModified: new Date(),
-        });
-        this.profileDataArray.push({
-            title: 'Title 5',
-            description: 'desc5',
-            values: [],
-            dateCreated: new Date(),
-            lastModified: new Date(),
-        });
-        this.profileDataArray.push({
-            title: 'Title 5',
-            description: 'desc5',
-            values: [],
-            dateCreated: new Date(),
-            lastModified: new Date(),
-        });
-        this.profileDataArray.push({
-            title: 'Title 5',
-            description: 'desc5',
-            values: [],
-            dateCreated: new Date(),
-            lastModified: new Date(),
-        });
     }
 
     click() {
@@ -129,7 +38,7 @@ export class AppComponent implements OnInit {
     }
 
     setDefaultProfile() {
-        if (this.profileDataArray.length === 1) {
+        if (this.profileDataArray.length > 1) {
             this.selectedProfile = this.profileDataArray[0];
         }
     }

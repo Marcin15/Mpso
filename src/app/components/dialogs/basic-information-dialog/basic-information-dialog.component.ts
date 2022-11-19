@@ -14,9 +14,10 @@ export class BasicInformationDialogComponent implements OnInit {
   @ViewChild('descriptionTextarea') descriptionTextarea!: ElementRef<HTMLTextAreaElement>;
 
   @Output() getUserProfileData = new EventEmitter<ProfileData>; 
-  dialogHidden = false;
-
+  
   @Output() closeDialog = new EventEmitter;
+
+  dialogHidden = false;
   
   //NgModel:
   title!: string;
@@ -52,12 +53,20 @@ export class BasicInformationDialogComponent implements OnInit {
   }
 
   operationSuccessful(event: number[]) {
+
     this.getUserProfileData.emit({
       title: this.title,
       description: this.description,
       values: event,
-      dateCreated: new Date(),
+      dateCreated: this.getDateCreated(),
       lastModified: new Date()
     });
+  }
+
+  getDateCreated(): Date {
+    if(this.profileData === null)
+      return new Date();
+
+      return this.profileData.dateCreated;
   }
 }
