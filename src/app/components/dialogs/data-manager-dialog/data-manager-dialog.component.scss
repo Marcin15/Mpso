@@ -19,6 +19,7 @@ $bg: rgba(238, 238, 238, 1);
     background-color: $bg;
     border-radius: 1rem;
     box-shadow: 0 0 10px 3px #666;
+    user-select: none;
 }
 
 .header {
