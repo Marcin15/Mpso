@@ -41,6 +41,6 @@
     (backToPreviousDialog)="dialogHidden = false"
     (closeDialog)="closeDialogClick()"
     (getProfileData)="operationSuccessful($event)"
-    [profileData]="profileData"
+    [profileDataValues]="profileData!.values"
 >
 </app-data-edit-dialog>

@@ -7,8 +7,7 @@
         </div>
         <div class="chart">
             <app-chart
-                [values]="selectedProfile.values"
-                [title]="selectedProfile.title"
+                [profileData]="selectedProfile"
             >
             </app-chart>
         </div>
@@ -30,7 +29,7 @@
     *ngIf="showDataInsertDialog"
     (closeDialog)="showDataInsertDialog = false"
     (getUserProfileData)="getProfileData($event)"
-    [profileData]="profileDataArray[0]"
+    [profileData]="null"
 >
 </app-basic-information-dialog>
 

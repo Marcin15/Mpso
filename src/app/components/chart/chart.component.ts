@@ -10,27 +10,31 @@ import { BaseChartDirective } from 'ng2-charts';
 import { ChartLabelCreatorService } from 'src/app/services/chart-label-creator.service';
 import { MovingAverangeService } from 'src/app/services/moving-averange.service';
 
-import * as TrendlineLinearPlugin from 'chartjs-plugin-trendline';
 import { TrendLineCalculatorService } from 'src/app/services/trend-line-calculator.service';
+import { ProfileData } from 'src/app/models/profileData';
+import { TrendLineData } from 'src/app/models/trendLineData';
 
 @Component({
     selector: 'app-chart',
     templateUrl: './chart.component.html',
     styleUrls: ['./chart.component.scss'],
+    providers: [TrendLineCalculatorService]
 })
 export class ChartComponent implements OnInit, AfterViewInit {
-    @Input() values!: number[];
-    @Input() title!: string;
+    @Input() profileData!: ProfileData;
 
     @ViewChild(BaseChartDirective) chart!: BaseChartDirective;
 
-    private threePointMovingAverange!: number[];
-    private fourPointMovingAverange!: number[];
+    private threePointMovingAverange!: Array<number | null>;
+    private fourPointMovingAverange!: Array<number | null>;
+
+    private _baseDateTrendLine!: TrendLineData;
+    private _threePointMovingAverangeTrendLine!: TrendLineData;
+    private _fourPointMovingAverangeTrendLine!: TrendLineData;
 
     public chartType!: ChartType;
     public chartData!: ChartConfiguration['data'];
     public chartOptions!: ChartConfiguration['options'];
-    public chartPlugins = [TrendlineLinearPlugin];
 
     constructor(
         private chartLabelCreator: ChartLabelCreatorService,
@@ -48,9 +52,24 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         this.threePointMovingAverange =
-            this.movingAverangeService.threePointMovingAverange(this.values);
+            this.movingAverangeService.threePointMovingAverange(this.profileData.values);
         this.fourPointMovingAverange =
-            this.movingAverangeService.fourPointMovingAverange(this.values);
+            this.movingAverangeService.fourPointMovingAverange(this.profileData.values);
+
+        this.getTrendLineData();
+    }
+
+    private getTrendLineData() {
+        this._baseDateTrendLine = this.trendLineService
+                .getTrendLine(this.profileData.values, this.profileData.values.length);
+
+        this._threePointMovingAverangeTrendLine = this.trendLineService
+                .getTrendLine(this.threePointMovingAverange, this.profileData.values.length);
+
+        this._fourPointMovingAverangeTrendLine = this.trendLineService
+                .getTrendLine(this.fourPointMovingAverange, this.profileData.values.length);
+
+        console.log(this.fourPointMovingAverange);
     }
 
     getChartType(): ChartType {
@@ -61,44 +80,67 @@ export class ChartComponent implements OnInit, AfterViewInit {
         return {
             datasets: [
                 {
-                    data: this.values,
                     label: 'Base data',
+                    data: this.profileData.values,
+                    borderColor: 'rgba(68, 114, 196, .7)',
+                    pointBorderColor: 'rgba(68, 114, 196, .7)',
+                    pointBackgroundColor: 'rgba(68, 114, 196, .7)',
+                    pointHoverBackgroundColor: 'rgba(68, 114, 196, 1)',
+                    pointHoverBorderColor: 'rgba(68, 114, 196, 1)',
+                    backgroundColor: 'rgba(68, 114, 196, .3)',
                 },
-                // {
-                //     data: this.threePointMovingAverange,
-                //     label: 'Three point moving averange',
-                //     backgroundColor: 'rgba(148,159,177,0.2)',
-                //     borderColor: 'blue',
-                //     pointBackgroundColor: 'rgba(148,159,177,1)',
-                //     pointBorderColor: '#fff',
-                //     pointHoverBackgroundColor: '#fff',
-                //     pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-
-                // },
-                // {
-                //     data: this.fourPointMovingAverange,
-                //     offset: 1,
-                //     label: 'Four point moving averange',
-                //     backgroundColor: 'rgba(148,159,177,0.2)',
-                //     borderColor: 'red',
-                //     pointBackgroundColor: 'rgba(148,159,177,1)',
-                //     pointBorderColor: '#fff',
-                //     pointHoverBackgroundColor: '#fff',
-                //     pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-                // },
                 {
-                    label: 'trend',
-                    data: this.trendLineService.getTrendLine(this.values).values,
-                    fill: false,
+                    label: 'Base data (trend line)',
+                    data: this._baseDateTrendLine.values,
                     borderWidth: 2,
-                    borderColor: 'red',
+                    borderColor: 'rgba(68, 114, 196, .8)',
                     pointRadius: 0,
                     borderDash: [0, 1, 8],
                     spanGaps: true,
-                    hidden: true
-                }
+                    hidden: true,
+                },
+                {
+                    label: 'Three point moving averange',
+                    data: this.threePointMovingAverange,
+                    borderColor: 'rgba(255, 99, 132, .7)',
+                    pointBorderColor: 'rgba(255, 99, 132, .7)',
+                    pointBackgroundColor: 'rgba(255, 99, 132, .7)',
+                    pointHoverBackgroundColor: 'rgba(255, 99, 132, 1)',
+                    pointHoverBorderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, .3)'
+                },
+                {
+                    label: 'Three point moving averange (trend line)',
+                    data: this._threePointMovingAverangeTrendLine.values,
+                    borderWidth: 2,
+                    borderColor: 'rgba(255, 99, 132, .8)',
+                    pointRadius: 0,
+                    borderDash: [0, 1, 8],
+                    spanGaps: true,
+                    hidden: true,
+                },
+                {
+                    label: 'Four point moving averange',
+                    data: this.fourPointMovingAverange,
+                    borderColor: 'rgba(75, 192, 192, .7)',
+                    pointBorderColor: 'rgba(75, 192, 192, .7)',
+                    pointBackgroundColor: 'rgba(75, 192, 192, .7)',
+                    pointHoverBackgroundColor: 'rgba(75, 192, 192, 1)',
+                    pointHoverBorderColor: 'rgba(75, 192, 192, .7)',
+                    backgroundColor: 'rgba(75, 192, 192, .3)'
+                },
+                {
+                    label: 'Four point moving averange (trend line)',
+                    data: this._fourPointMovingAverangeTrendLine.values,
+                    borderWidth: 2,
+                    borderColor: 'rgba(75, 192, 192, .8)',
+                    pointRadius: 0,
+                    borderDash: [0, 1, 8],
+                    spanGaps: true,
+                    hidden: true,
+                },
             ],
-            labels: this.chartLabelCreator.createLabel(this.values),
+            labels: this.chartLabelCreator.createLabel(this.profileData.values),
         };
     }
 
@@ -117,6 +159,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
                     ticks: {
                         stepSize: 1,
                     },
+                    max: this.profileData.values.length - 1
                 },
                 y: {
                     position: 'left',
@@ -132,7 +175,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
                 },
                 title: {
                     display: true,
-                    text: this.title,
+                    text: this.profileData.title,
                     font: {
                         size: 22,
                     },

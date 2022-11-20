@@ -4,7 +4,7 @@ import { dragMode } from 'src/app/models/enums';
 import { ProfileData } from 'src/app/models/profileData';
 
 @Component({
-  selector: 'app-data-edit-dialog[profileData]',
+  selector: 'app-data-edit-dialog[profileDataValues]',
   templateUrl: './data-edit-dialog.component.html',
   styleUrls: ['./data-edit-dialog.component.scss']
 })
@@ -12,7 +12,7 @@ export class DataInsertDialogComponent implements OnInit{
 
   @ViewChild('dataInsertTable') dataInsertTable!: ElementRef;
 
-  @Input() profileData!: ProfileData | null;
+  @Input() profileDataValues!: number[] | null;
 
   @Output() getProfileData = new EventEmitter<number[]>; 
   @Output() backToPreviousDialog = new EventEmitter;
@@ -25,7 +25,7 @@ export class DataInsertDialogComponent implements OnInit{
   };
 
   tableRowsArray: DataEditInput[] = [
-    {value: null, isDragging: false},
+    {value: null, isDragging: false}
   ];
 
   constructor() { }
@@ -35,19 +35,16 @@ export class DataInsertDialogComponent implements OnInit{
   }
 
   setInitialValues() {
-    if(this.profileData === null) return;
+    console.log(this.profileDataValues);
 
-    this.tableRowsArray = this.profileData!.values.map(x =>{
-      return {
-        value: x,
+    if(this.profileDataValues === null || this.profileDataValues === undefined) return;
+    
+    this.profileDataValues.forEach(element => {
+      this.tableRowsArray.unshift({
+        value: element,
         isDragging: false
-      } as DataEditInput
+      }) 
     });
-
-    this.tableRowsArray.push({
-      value: null,
-      isDragging: false
-    })
   }
 
   insertNewRow(index: number) {

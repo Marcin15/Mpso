@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
     }
 
     setDefaultProfile() {
-        if (this.profileDataArray.length > 1) {
+        if (this.profileDataArray.length > 0) {
             this.selectedProfile = this.profileDataArray[0];
         }
     }

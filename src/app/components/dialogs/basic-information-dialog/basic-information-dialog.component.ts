@@ -29,8 +29,18 @@ export class BasicInformationDialogComponent implements OnInit {
     this.setInitialValues();
   }
 
-  setInitialValues() {
-    if(this.profileData === null) return;
+  setInitialValues() { 
+    if(this.profileData === null) {
+      this.profileData = {
+        title: '',
+        description: '',
+        values: [],
+        isModifiled: false,
+        dateCreated: new Date(),
+        lastModified: new Date()
+      }
+      return;
+    }
 
     this.title = this.profileData!.title;
     this.description = this.profileData!.description;

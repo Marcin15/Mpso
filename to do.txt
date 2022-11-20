@@ -20,6 +20,7 @@ TO DO:
 -profile manager component:
     -display profile manager component on button click ✔
     -allow edit and delete profiles ✔
+    -allow to select clicked data profile 
 
 -other:
     -create busines logic services

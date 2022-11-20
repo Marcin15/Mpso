@@ -11,37 +11,37 @@ export class TrendLineCalculatorService {
   private xySum: number = 0;
   private xPower2Sum: number = 0;
   private elementsCount: number = 0;
+  private baseDataLenght: number = 0;
 
   constructor() {  }
 
-  getTrendLine(data: number[]): TrendLineData {
+  getTrendLine(data: Array<number | null>, baseDataLenght: number): TrendLineData {
+   
+    this.resetInitialValues();
+
     this.xSumSetter(data);
     this.ySumSetter(data);
     this.xySumSetter(data);
-    this.elementsCount = data.length ;    
-
+    this.elementsCount = data.filter(x => x !== null).length ;      
+    this.baseDataLenght = baseDataLenght;
+    
     let slope = this.calculateSlope();
     let intercept = this.calculateYIntercept(slope);
 
     let values: Array<number | null> = []
 
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < this.baseDataLenght; i++) {
       if(i == 0) {
         values.push(intercept);
         continue;
       }
-      if(i == data.length - 1) {
-        values.push(slope*this.elementsCount - 1 + intercept);
+      if(i == this.baseDataLenght - 1) {
+        values.push(slope*i+ intercept);
         continue;
       }
       values.push(null);
-    }
-
-    console.log(`y = ${slope}x + ${intercept}`);
-    console.log(this.elementsCount);
-    
-    
-
+    } 
+  
     return {
       values: values,
       equation: `y = ${slope}x + ${intercept}`
@@ -60,27 +60,35 @@ export class TrendLineCalculatorService {
     return (this.ySum - slope*this.xSum) / this.elementsCount;
   }
 
-  private xSumSetter(data: number[]): void {
+  private xSumSetter(data: Array<number | null>): void {
 
     data.forEach((_, index) => {
-      this.xSum += index;
+      this.xSum += index;      
       this.xPower2Sum += Math.pow((index), 2);
     });
 
   }
 
-  private ySumSetter(data: number[]): void {
+  private ySumSetter(data: Array<number | null>): void {
 
     data.forEach((element) => {
-      this.ySum += element;
+      this.ySum += element!;
     });
-
   }
 
-  private xySumSetter(data: number[]): void {
+  private xySumSetter(data: Array<number | null>): void {
 
     data.forEach((element, index) => {
-      this.xySum += element*index;
+      this.xySum += element!*index;
     });
+  }
+
+  private resetInitialValues() {
+
+    this.xSum = 0;
+    this.ySum = 0;
+    this.xySum = 0;
+    this.xPower2Sum = 0;
+    this.elementsCount = 0;
   }
 }
