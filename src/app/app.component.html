@@ -37,6 +37,7 @@
     *ngIf="showDataManagerDialog"
     [userDataArray]="profileDataArray"
     (hideComponent)="showDataManagerDialog = false"
+    (update)="updateUserDataProfileArray()"
 >
 </app-data-manager>
 

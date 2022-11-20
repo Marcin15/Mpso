@@ -38,19 +38,23 @@ export class DataManagerDialogComponent implements OnInit {
   removeDataManagerItem(event: ProfileData) {
     let item = this.userDataArray.findIndex(x => x.dateCreated === event.dateCreated);
     this.userDataArray.splice(item, 1);
+
+    this.update.emit();
   }
 
-  closeBasicInformationDialog() {
-    this.basicInformationDialogHidden = true;
-    this.clearEditingUserProfileData();
-  }
-
+  
   updateUserProfileData(event: ProfileData) {
     this.updateUserProfileDataArray(event);
     this.clearEditingUserProfileData();
     this.basicInformationDialogHidden = true;
-  }
 
+    this.update.emit();
+  }
+  
+  closeBasicInformationDialog() {
+    this.basicInformationDialogHidden = true;
+    this.clearEditingUserProfileData();
+  }
   private updateUserProfileDataArray(data: ProfileData) {
     if(this.editingProfileData === null) {
       this.userDataArray.push(data);

@@ -13,16 +13,17 @@ export class LocalStorageRepositoryService {
     window.localStorage.setItem('user-data', this.serializeObject(userData));
   }
 
-  removeFromLocalStorage() {
-    window.localStorage.removeItem('user-data');
-  }
-
+  
   getFromLocalStorage() {
     let json = window.localStorage.getItem('user-data');
-
+    
     return this.deserializeObject(json);
   }
-
+  
+  private removeFromLocalStorage() {
+    window.localStorage.removeItem('user-data');
+  }
+  
   private serializeObject(userData: ProfileData[]): string {
     return JSON.stringify(userData);
   }

@@ -42,4 +42,8 @@ export class AppComponent implements OnInit {
             this.selectedProfile = this.profileDataArray[0];
         }
     }
+
+    updateUserDataProfileArray() {
+        this.localStorageRepo.updateLocalStorage(this.profileDataArray);
+    }
 }
