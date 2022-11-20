@@ -23,6 +23,8 @@ export class BasicInformationDialogComponent implements OnInit {
   title!: string;
   description!: string;
 
+  values: number[] = [];
+
   constructor() { }
 
   ngOnInit(): void {
@@ -30,20 +32,13 @@ export class BasicInformationDialogComponent implements OnInit {
   }
 
   setInitialValues() { 
-    if(this.profileData === null) {
-      this.profileData = {
-        title: '',
-        description: '',
-        values: [],
-        isModifiled: false,
-        dateCreated: new Date(),
-        lastModified: new Date()
-      }
-      return;
-    }
+    if(this.profileData === null) return;
+    
 
     this.title = this.profileData!.title;
     this.description = this.profileData!.description;
+
+    this.values = this.profileData!.values;
   }
 
   titleInputClick(){
@@ -69,7 +64,7 @@ export class BasicInformationDialogComponent implements OnInit {
       description: this.description,
       values: event,
       dateCreated: this.getDateCreated(),
-      isModifiled: this.isModified(),
+      isModified: this.isModified(),
       lastModified: new Date()
     });
   }
@@ -78,7 +73,7 @@ export class BasicInformationDialogComponent implements OnInit {
     if(this.profileData === null)
       return new Date();
 
-      return this.profileData.dateCreated;
+      return this.profileData!.dateCreated;
   }
 
   private isModified(): boolean {
