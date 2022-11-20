@@ -68,8 +68,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
         this._fourPointMovingAverangeTrendLine = this.trendLineService
                 .getTrendLine(this.fourPointMovingAverange, this.profileData.values.length);
-
-        console.log(this.fourPointMovingAverange);
     }
 
     getChartType(): ChartType {
@@ -159,11 +157,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
                     ticks: {
                         stepSize: 1,
                     },
-                    max: this.profileData.values.length - 1
+                    // max: this.profileData.values.length - 1
                 },
                 y: {
                     position: 'left',
                     beginAtZero: true,
+                    // max: Math.max.apply(null, this.profileData.values) * 1.19
                 },
             },
 
