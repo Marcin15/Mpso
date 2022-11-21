@@ -1,4 +1,4 @@
-<ng-container *ngIf="selectedProfile; else noChartDataTemplate">
+<ng-container *ngIf="selectedProfile != null; else noChartDataTemplate">
     <div class="selectedProfile">
         <div class="add-new-wrapper">
             <button (click)="showDataManagerDialog = true">
@@ -38,6 +38,7 @@
     [userDataArray]="profileDataArray"
     (hideComponent)="showDataManagerDialog = false"
     (update)="updateUserDataProfileArray()"
+    (profileSelected)="profileSelected($event)"
 >
 </app-data-manager>
 

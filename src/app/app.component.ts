@@ -9,7 +9,7 @@ import { LocalStorageRepositoryService } from './services/local-storage-reposito
 })
 export class AppComponent implements OnInit {
     profileDataArray: ProfileData[] = [];
-    selectedProfile!: ProfileData;
+    selectedProfile: ProfileData | null = null;
     showDataInsertDialog: boolean = false;
     showDataManagerDialog: boolean = false;
 
@@ -45,5 +45,12 @@ export class AppComponent implements OnInit {
 
     updateUserDataProfileArray() {
         this.localStorageRepo.updateLocalStorage(this.profileDataArray);
+    }
+
+    profileSelected(event: ProfileData) {
+        this.selectedProfile = null;
+        setTimeout(() => {
+            this.selectedProfile = event;
+        });
     }
 }

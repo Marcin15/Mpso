@@ -31,14 +31,21 @@ export class TrendLineCalculatorService {
     let values: Array<number | null> = []
 
     for (let i = 0; i < this.baseDataLenght; i++) {
-      if(i == 0) {
+      if(i === 0) {
         values.push(intercept);
         continue;
       }
-      if(i == this.baseDataLenght - 1) {
+
+      // if(i === baseDataLenght / 2) {
+      //   values.push(slope*i+ intercept);
+      //   continue;
+      // }
+
+      if(i === this.baseDataLenght - 1) {
         values.push(slope*i+ intercept);
         continue;
       }
+      
       values.push(null);
     } 
   

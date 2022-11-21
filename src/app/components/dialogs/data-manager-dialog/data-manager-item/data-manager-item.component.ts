@@ -11,6 +11,7 @@ export class DataManagerItemComponent implements OnInit {
   @Input() profileData!: ProfileData;
   @Output() remove = new EventEmitter<ProfileData>();
   @Output() edit = new EventEmitter<ProfileData>();
+  @Output() itemClicked = new EventEmitter<ProfileData>();
 
   constructor() { }
 
@@ -25,4 +26,7 @@ export class DataManagerItemComponent implements OnInit {
     this.remove.emit(this.profileData);
   }
 
+  clicked() {   
+    this.itemClicked.emit(this.profileData);
+  }
 }

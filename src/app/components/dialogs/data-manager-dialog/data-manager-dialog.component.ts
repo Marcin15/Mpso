@@ -12,6 +12,7 @@ export class DataManagerDialogComponent implements OnInit {
 
   @Output() hideComponent = new EventEmitter<boolean>();
   @Output() update = new EventEmitter<ProfileData>();
+  @Output() profileSelected = new EventEmitter<ProfileData>();
 
   basicInformationDialogHidden = true;
   editingProfileData!: ProfileData | null;
@@ -72,5 +73,9 @@ export class DataManagerDialogComponent implements OnInit {
   addNewProfileData() {
     this.editingProfileData = null;
     this.basicInformationDialogHidden = false;
+  }
+
+  itemClick(event: ProfileData) {
+    this.profileSelected.emit(event);
   }
 }
