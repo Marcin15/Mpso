@@ -1,19 +1,15 @@
 <ng-container *ngIf="selectedProfile != null; else noChartDataTemplate">
-    <div class="selectedProfile">
-        <div class="add-new-wrapper">
-            <button (click)="showDataManagerDialog = true">
+    <div class="profile-selected">
+        <div class="chart">
+            <button (click)="showDataManagerDialog = true" class="manage-profiles-button">
                 Manage profiles
             </button>
+            <app-chart [profileData]="selectedProfile"> </app-chart>
         </div>
-        <div class="chart">
-            <app-chart
-                [profileData]="selectedProfile"
-            >
-            </app-chart>
+        <div class="tabulated-data-container">
+            <app-tabulated-data [profileData]="selectedProfile">
+            </app-tabulated-data>
         </div>
-        <app-tabulated-data [profileData]="selectedProfile">
-
-        </app-tabulated-data>
     </div>
 </ng-container>
 

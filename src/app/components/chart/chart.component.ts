@@ -78,10 +78,9 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
         this.profileData = profileData;
         this.setChartData();
         this.setTrendLineData();
+        this._delayed = false;
         this.chartData = this.getChartData();
         this.chartOptions = this.getChartOptions();
-        console.log(this._baseDateTrendLine);
-        
     }
 
     getChartType(): ChartType {

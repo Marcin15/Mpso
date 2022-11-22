@@ -26,32 +26,32 @@
     }
 }
 
-.selectedProfile {
+.profile-selected {
     display: flex;
-    height: 100vh;
     flex-direction: column;
-    justify-content: flex-end;
+    // justify-content: flex-end;
     align-items: center;
+
+    margin-top: 1rem;
 }
 
-.chart {
-    margin-bottom: 10px;
-}
-
-.add-new-wrapper {
+.tabulated-data-container {
     width: 100%;
-    // padding-top: 5rem;
-    margin-top: 100px;
+    // background-color: gold;
+}
 
-    button {
-        outline: none;
-        border: none;
-        font-size: 1rem;
-        padding: .5rem 1rem;
-        text-align: left;
-        margin: 0 0 -100px 60px;
-        border-radius: .5rem;
-        outline: 1rem;
-        cursor: pointer;
-    }
+.manage-profiles-button {
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    padding: .5rem 1rem;
+    text-align: left;
+    margin-left: 2rem;
+    border-radius: .5rem;
+    outline: 1rem;
+    cursor: pointer;
+}
+
+.tabulated-data-container {
+    margin-top: 2rem;
 }

@@ -96,11 +96,11 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/aos/dist/aos.css",
+              "../node_modules/aos/dist/aos.css",
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/chartjs-plugin-trendline/src/chartjs-plugin-trendline.js",
+              "../node_modules/chartjs-plugin-trendline/src/chartjs-plugin-trendline.js",
               "node_modules/aos/dist/aos.js"
             ]
           }

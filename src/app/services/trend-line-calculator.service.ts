@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TrendLineData } from '../models/trendLineData';
+import { CalculationHelperService } from './calculation-helper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ export class TrendLineCalculatorService {
   private elementsCount: number = 0;
   private baseDataLenght: number = 0;
 
-  constructor() {  }
+  constructor(
+    private calculationHelper: CalculationHelperService
+  ) {  }
 
   getTrendLine(data: Array<number | null>, baseDataLenght: number): TrendLineData {
    
@@ -51,7 +54,7 @@ export class TrendLineCalculatorService {
   
     return {
       values: values,
-      equation: `y = ${slope}x + ${intercept}`
+      equation: `y = ${this.calculationHelper.roundToDecimalPlace(slope, 3)}x + ${this.calculationHelper.roundToDecimalPlace(intercept, 3)}`
     }
   }
 

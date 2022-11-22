@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import * as AOS from 'aos';
 import { ProfileData } from './models/profileData';
 import { LocalStorageRepositoryService } from './services/local-storage-repository.service';
 
@@ -17,6 +17,11 @@ export class AppComponent implements OnInit {
     constructor(private localStorageRepo: LocalStorageRepositoryService) {}
 
     ngOnInit(): void {
+        AOS.init({
+            once: true,
+            duration: 1500
+        });
+
         var localStorageResult = this.localStorageRepo.getFromLocalStorage();
 
         if (localStorageResult) {
