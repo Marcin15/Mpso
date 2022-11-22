@@ -227,11 +227,34 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
                     display: true,
                     position: 'bottom',
                     align: 'center',
+                    // labels: {
+                    //     filter(item, data) {
+                    //         if(item.datasetIndex!%2 !== 0)
+                    //             return false;
+
+                    //         return true;
+                    //     },
+
+                    // }
                 },
                 tooltip: {
                     intersect: false,
                     position: 'nearest',
-                    mode: 'index'
+                    mode: 'index',
+                    callbacks: {
+                        label(thiss, tooltipItem) {
+                            let chart = thiss as any;
+                            
+                            let datasetIndex = chart.datasetIndex;
+                            
+                            if(datasetIndex %2 !== 0) {
+                                return '';
+                            }
+
+                            return `${chart.dataset.label}: ${chart.formattedValue}`;
+                        },
+
+                    }
                 },
                 title: {
                     display: true,
