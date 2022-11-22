@@ -42,6 +42,8 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
     private _exponentialSmoothingAlfa0_3TrendLine!: TrendLineData;
     private _exponentialSmoothingAlfa0_7TrendLine!: TrendLineData;
 
+    private _delayed: boolean = false;
+
     public chartType!: ChartType;
     public chartData!: ChartConfiguration['data'];
     public chartOptions!: ChartConfiguration['options'];
@@ -107,7 +109,8 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
                     pointRadius: 0,
                     borderDash: [0, 1, 8],
                     spanGaps: true,
-                    pointHitRadius: 0
+                    pointHitRadius: 0,
+                    hidden: true
                 },
                 {
                     label: 'Three point moving averange',
@@ -234,7 +237,6 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
 
                     //         return true;
                     //     },
-
                     // }
                 },
                 tooltip: {
@@ -242,13 +244,13 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
                     position: 'nearest',
                     mode: 'index',
                     callbacks: {
-                        label(thiss, tooltipItem) {
+                        label: (thiss, tooltipItem) => {
                             let chart = thiss as any;
                             
                             let datasetIndex = chart.datasetIndex;
                             
                             if(datasetIndex %2 !== 0) {
-                                return '';
+                                return this._exponentialSmoothingAlfa0_3TrendLine.equation;
                             }
 
                             return `${chart.dataset.label}: ${chart.formattedValue}`;
@@ -264,6 +266,18 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
                     },
                 },
             },
+            animation: {
+                onComplete: () => {
+                    this._delayed = true;
+                },
+                delay: (context) => {
+                let delay = 0;
+                if (context.type === 'data' && context.mode === 'default' && !this._delayed) {
+                    delay = context.dataIndex * 90 + context.datasetIndex * 100;
+                }
+                return delay;
+                }
+            }
         };
     }
 

@@ -18,6 +18,7 @@
     background-color: #fff;
     border-radius: 1rem;
     transition: 300ms;
+    box-shadow: 0 0 10px #000;
 
     &.hidden {
         transform: translateX(-400px) translateY(-50%);
@@ -79,7 +80,7 @@
 
         & .user-data:focus ~ span,
         & .user-data.not-empty ~ span {
-            color: aqua;
+            color: hsl(250, 50%, 40%);
             transform: translate(10px, -10px);
             font-size: .9rem;
             padding: 0 10px;
@@ -87,7 +88,7 @@
         }
 
         & .user-data:focus {
-            border-color: aqua;
+            border-color: hsl(250, 50%, 40%);
         }
     }
 }
