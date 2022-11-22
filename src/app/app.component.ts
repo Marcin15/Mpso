@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { ProfileData } from './models/profileData';
 import { LocalStorageRepositoryService } from './services/local-storage-repository.service';
 
@@ -48,9 +49,6 @@ export class AppComponent implements OnInit {
     }
 
     profileSelected(event: ProfileData) {
-        this.selectedProfile = null;
-        setTimeout(() => {
-            this.selectedProfile = event;
-        });
+        this.selectedProfile = event;
     }
 }

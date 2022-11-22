@@ -2,7 +2,11 @@ import {
     AfterViewInit,
     Component,
     Input,
+    OnChanges,
+    OnDestroy,
     OnInit,
+    SimpleChange,
+    SimpleChanges,
     ViewChild,
 } from '@angular/core';
 import { ChartConfiguration, ChartType, ChartTypeRegistry, TooltipItem, TooltipModel } from 'chart.js';
@@ -14,6 +18,7 @@ import { TrendLineCalculatorService } from 'src/app/services/trend-line-calculat
 import { ProfileData } from 'src/app/models/profileData';
 import { TrendLineData } from 'src/app/models/trendLineData';
 import { ExponentialSmoothingService } from 'src/app/services/exponential-smoothing.service';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-chart',
@@ -21,7 +26,7 @@ import { ExponentialSmoothingService } from 'src/app/services/exponential-smooth
     styleUrls: ['./chart.component.scss'],
     providers: [TrendLineCalculatorService]
 })
-export class ChartComponent implements OnInit, AfterViewInit {
+export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
     @Input() profileData!: ProfileData;
 
     @ViewChild(BaseChartDirective) chart!: BaseChartDirective;
@@ -47,6 +52,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
         private trendLineService: TrendLineCalculatorService,
         private exponentialSmoothingService: ExponentialSmoothingService
     ) {}
+    ngOnChanges(changes: SimpleChanges): void {
+        let change = changes['profileData'];
+
+        if(!change.firstChange) 
+            this.updateChartInvoker(change.currentValue);
+    }
 
     ngAfterViewInit(): void {
         setTimeout(() => {
@@ -57,33 +68,18 @@ export class ChartComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
-        this._threePointMovingAverange =
-            this.movingAverangeService.threePointMovingAverange(this.profileData.values);
-        this._fourPointMovingAverange =
-            this.movingAverangeService.fourPointMovingAverange(this.profileData.values);
-        this._exponentialSmoothingAlfa0_3 = 
-            this.exponentialSmoothingService.calculate(this.profileData.values, .3);
-        this._exponentialSmoothingAlfa0_7 = 
-            this.exponentialSmoothingService.calculate(this.profileData.values, .7);
-
-        this.getTrendLineData();
+        this.setChartData();
+        this.setTrendLineData();
     }
 
-    private getTrendLineData() {
-        this._baseDateTrendLine = this.trendLineService
-                .getTrendLine(this.profileData.values, this.profileData.values.length);
-
-        this._threePointMovingAverangeTrendLine = this.trendLineService
-                .getTrendLine(this._threePointMovingAverange, this.profileData.values.length);
-
-        this._fourPointMovingAverangeTrendLine = this.trendLineService
-                .getTrendLine(this._fourPointMovingAverange, this.profileData.values.length);
-
-        this._exponentialSmoothingAlfa0_3TrendLine = this.trendLineService
-                .getTrendLine(this._exponentialSmoothingAlfa0_3, this.profileData.values.length);
-
-        this._exponentialSmoothingAlfa0_7TrendLine = this.trendLineService
-                .getTrendLine(this._exponentialSmoothingAlfa0_7, this.profileData.values.length);
+    updateChartInvoker(profileData: ProfileData) {        
+        this.profileData = profileData;
+        this.setChartData();
+        this.setTrendLineData();
+        this.chartData = this.getChartData();
+        this.chartOptions = this.getChartOptions();
+        console.log(this._baseDateTrendLine);
+        
     }
 
     getChartType(): ChartType {
@@ -246,5 +242,33 @@ export class ChartComponent implements OnInit, AfterViewInit {
                 },
             },
         };
+    }
+
+    private setChartData() {
+        this._threePointMovingAverange =
+            this.movingAverangeService.threePointMovingAverange(this.profileData.values);
+        this._fourPointMovingAverange =
+            this.movingAverangeService.fourPointMovingAverange(this.profileData.values);
+        this._exponentialSmoothingAlfa0_3 = 
+            this.exponentialSmoothingService.calculate(this.profileData.values, .3);
+        this._exponentialSmoothingAlfa0_7 = 
+            this.exponentialSmoothingService.calculate(this.profileData.values, .7);
+    }
+
+    private setTrendLineData() {
+        this._baseDateTrendLine = this.trendLineService
+                .getTrendLine(this.profileData.values, this.profileData.values.length);
+
+        this._threePointMovingAverangeTrendLine = this.trendLineService
+                .getTrendLine(this._threePointMovingAverange, this.profileData.values.length);
+
+        this._fourPointMovingAverangeTrendLine = this.trendLineService
+                .getTrendLine(this._fourPointMovingAverange, this.profileData.values.length);
+
+        this._exponentialSmoothingAlfa0_3TrendLine = this.trendLineService
+                .getTrendLine(this._exponentialSmoothingAlfa0_3, this.profileData.values.length);
+
+        this._exponentialSmoothingAlfa0_7TrendLine = this.trendLineService
+                .getTrendLine(this._exponentialSmoothingAlfa0_7, this.profileData.values.length);
     }
 }
