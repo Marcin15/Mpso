@@ -9,6 +9,7 @@ import { BasicInformationDialogComponent } from './components/dialogs/basic-info
 import { DataInsertDialogComponent } from './components/dialogs/data-edit-dialog/data-edit-dialog.component';
 import { DataManagerDialogComponent } from './components/dialogs/data-manager-dialog/data-manager-dialog.component';
 import { DataManagerItemComponent } from './components/dialogs/data-manager-dialog/data-manager-item/data-manager-item.component';
+import { TabulatedDataComponent } from './components/tabulated-data/tabulated-data.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { DataManagerItemComponent } from './components/dialogs/data-manager-dial
     DataInsertDialogComponent,
     BasicInformationDialogComponent,
     DataManagerItemComponent,
+    TabulatedDataComponent,
   ],
   imports: [
     BrowserModule,
