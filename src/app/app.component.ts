@@ -50,5 +50,6 @@ export class AppComponent implements OnInit {
 
     profileSelected(event: ProfileData) {
         this.selectedProfile = event;
+        this.showDataManagerDialog = false;
     }
 }
