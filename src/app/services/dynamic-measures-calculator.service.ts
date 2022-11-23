@@ -16,7 +16,7 @@ export class DynamicMeasuresCalculatorService {
 
     for (let i = 1; i < data.length; i++) {
       let calculated = data[i] - data[0];
-      result.push(this.calculationHelper.roundToDecimalPlace(calculated, 2));
+      result.push(calculated);   
     }
 
     return result;
@@ -28,7 +28,7 @@ export class DynamicMeasuresCalculatorService {
 
     for (let i = 1; i < data.length; i++) {
       let calculated = data[i]-data[i-1];
-      result.push(this.calculationHelper.roundToDecimalPlace(calculated, 2));
+      result.push(calculated);   
     }
 
     return result;
@@ -40,7 +40,7 @@ export class DynamicMeasuresCalculatorService {
 
     for (let i = 1; i < data.length; i++) {
       let calculated = <number>data[i]/baseFirstElement * 100;
-      result.push(this.calculationHelper.roundToDecimalPlace(calculated, 0));
+      result.push(calculated);   
     }
 
     return result;
@@ -52,7 +52,7 @@ export class DynamicMeasuresCalculatorService {
 
     for (let i = 1; i < data.length; i++) {
       let calculated = <number>data[i]/baseFirstElement * 100;
-      result.push(this.calculationHelper.roundToDecimalPlace(calculated, 0));
+      result.push(calculated);   
     }
 
     return result;
@@ -64,7 +64,7 @@ export class DynamicMeasuresCalculatorService {
 
     for (let i = 1; i < data.length; i++) {
       let calculated = (data[i]-data[0])/data[0] + 1;
-      result.push(this.calculationHelper.roundToDecimalPlace(calculated, 2));      
+      result.push(calculated);     
     }
 
     return result;
@@ -76,9 +76,19 @@ export class DynamicMeasuresCalculatorService {
 
     for (let i = 1; i < data.length; i++) {
       let calculated = (data[i]-data[i-1])/data[i-1] + 1;
-      result.push(this.calculationHelper.roundToDecimalPlace(calculated, 2));      
+      result.push(calculated);      
     }
 
     return result;
+  }
+
+  averageRateOfChange(data: Array<number | null>): number {
+    let result: number = data.filter(x => x !== null)[0] as number;
+  
+    for (let i = 2; i < data.length; i++) {
+      result *= <number>data[i];
+    }
+    
+    return Math.pow(result, 1/data.length);
   }
 }

@@ -19,7 +19,8 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
         AOS.init({
             once: true,
-            duration: 1500
+            duration: 1500,
+            offset: 10
         });
 
         var localStorageResult = this.localStorageRepo.getFromLocalStorage();

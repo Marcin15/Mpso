@@ -18,6 +18,8 @@ export class TabulatedDataComponent implements OnInit {
     private _fixedBaseIndex!: Array<number | null>;
     private _chainBaseIndex!: Array<number | null>;
 
+    averangeChangeRate = 0;
+
     tableData: TabulatedData[] = [];
 
     constructor(
@@ -68,5 +70,8 @@ export class TabulatedDataComponent implements OnInit {
         this._chainBaseIndex = this.dynamicMesasuresCalculator.chainBaseIndex(
             this.profileData.values
         );
+        this.averangeChangeRate = this.dynamicMesasuresCalculator.averageRateOfChange(this._chainBaseIndex);
+        console.log(this.averangeChangeRate);
+        
     }
 }

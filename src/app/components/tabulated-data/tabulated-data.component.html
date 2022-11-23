@@ -1,38 +1,98 @@
 <div class="container">
     <div class="content-wrapper">
-        <div class="dynamic-measures-table" >
-            <table >
+        <div class="dynamic-measures-table">
+            <table>
                 <colgroup>
-                    <col span="1" style="width: 5%;">
-                    <col span="1" style="width: 12%;">
-                 </colgroup>
+                    <col span="1" style="width: 5%" />
+                    <col span="1" style="width: 12%" />
+                </colgroup>
                 <thead>
-                        <!-- <th colspan="2" rowspan="2"></th> -->
-                        <th>No.</th>
-                        <th>Values</th>
-                        <th><span>Δy<span class="equation-smaller-font">t/0</span></span></th>
-                        <th><span>Ty<span class="equation-smaller-font">t/0</span></span></th>
-                        <th><span>Δy<span class="equation-smaller-font">t/t-1</span></span></th>
-                        <th><span>Ty<span class="equation-smaller-font">t/t-1</span></span></th>
-                        <th><span>iY<span class="equation-smaller-font">t/0</span></span></th>
-                        <th><span>iY<span class="equation-smaller-font">t/t-1</span></span></th>
+                    <!-- <th colspan="2" rowspan="2"></th> -->
+                    <th>No.</th>
+                    <th>Values</th>
+                    <th>
+                        <span
+                            >Δy<span class="equation-smaller-font"
+                                >t/0</span
+                            ></span
+                        >
+                    </th>
+                    <th>
+                        <span
+                            >Ty<span class="equation-smaller-font"
+                                >t/0</span
+                            ></span
+                        >
+                    </th>
+                    <th>
+                        <span
+                            >Δy<span class="equation-smaller-font"
+                                >t/t-1</span
+                            ></span
+                        >
+                    </th>
+                    <th>
+                        <span
+                            >Ty<span class="equation-smaller-font"
+                                >t/t-1</span
+                            ></span
+                        >
+                    </th>
+                    <th>
+                        <span
+                            >iY<span class="equation-smaller-font"
+                                >t/0</span
+                            ></span
+                        >
+                    </th>
+                    <th>
+                        <span
+                            >iY<span class="equation-smaller-font"
+                                >t/t-1</span
+                            ></span
+                        >
+                    </th>
                 </thead>
                 <tbody>
-                    <tr data-aos="fade-zoom-in" data-aos-offset="0" 
-                    *ngFor="let data of tableData; let i = index; let isFirst = first">
-                        <td>{{i + 1}}.</td>
-                        <td>{{data.baseValue}}</td>
+                    <tr
+                        data-aos="fade-zoom-in"
+                        data-aos-offset="0"
+                        *ngFor="
+                            let data of tableData;
+                            let i = index;
+                            let isFirst = first
+                        "
+                    >
+                        <td>{{ i + 1 }}.</td>
+                        <td>{{ data.baseValue }}</td>
                         <ng-container *ngIf="!isFirst; else firstRow">
-                            <td>{{data.absuluteIncrease_t0}}</td>
-                            <td>{{data.relativeIncrease_t0}}%</td>
-                            <td [ngClass]="{'less-than-zero': data.absuluteIncrease_t1! < 0}">{{data.absuluteIncrease_t1}}</td>
-                            <td [ngClass]="{'less-than-zero': data.relativeIncrease_t1! < 0}">{{data.relativeIncrease_t1}}%</td>
-                            <td>{{data.fixedBaseIndex}}</td>
-                            <td>{{data.chainBaseIndex}}</td>
+                            <td>{{ data.absuluteIncrease_t0 | number:'1.0-2'}}</td>
+                            <td>{{ data.relativeIncrease_t0 | number:'1.0-2'}}%</td>
+                            <td
+                                [ngClass]="{
+                                    'less-than-zero':
+                                        data.absuluteIncrease_t1! < 0
+                                }"
+                            >
+                                {{ data.absuluteIncrease_t1 | number:'1.0-2'}}
+                            </td>
+                            <td
+                                [ngClass]="{
+                                    'less-than-zero':
+                                        data.relativeIncrease_t1! < 0
+                                }"
+                            >
+                                {{ data.relativeIncrease_t1 | number:'1.0-2'}}%
+                            </td>
+                            <td>{{ data.fixedBaseIndex | number:'1.0-2'}}</td>
+                            <td>{{ data.chainBaseIndex | number:'1.0-2'}}</td>
                         </ng-container>
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="averange-change-rate" data-aos="zoom-in" >
+            <span>G = {{averangeChangeRate | number: '1.0-2'}}</span>
         </div>
     </div>
 </div>
