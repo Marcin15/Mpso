@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ProfileData } from 'src/app/models/profileData';
 import { TabulatedData } from 'src/app/models/tabulatedData';
 import { DynamicMeasuresCalculatorService } from 'src/app/services/dynamic-measures-calculator.service';
@@ -8,7 +8,7 @@ import { DynamicMeasuresCalculatorService } from 'src/app/services/dynamic-measu
     templateUrl: './tabulated-data.component.html',
     styleUrls: ['./tabulated-data.component.scss'],
 })
-export class TabulatedDataComponent implements OnInit {
+export class TabulatedDataComponent implements OnInit, OnChanges {
     @Input() profileData!: ProfileData;
 
     private _absuluteIncrease_t0!: Array<number | null>;
@@ -25,6 +25,14 @@ export class TabulatedDataComponent implements OnInit {
     constructor(
         private dynamicMesasuresCalculator: DynamicMeasuresCalculatorService
     ) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    let change = changes['profileData'];    
+
+    if(!change.firstChange) {
+      this.updateInvoker(change.currentValue);
+    }
+  }
 
     ngOnInit(): void {
       this.calculateDymanicMeasures();
@@ -43,6 +51,25 @@ export class TabulatedDataComponent implements OnInit {
           chainBaseIndex: this._chainBaseIndex[i]
         })
       }
+    }
+
+    private updateInvoker(profileData: ProfileData) {      
+      this.profileData = profileData;
+
+      this.clearArrays();
+      this.calculateDymanicMeasures();
+      this.createTableData(); 
+    }
+
+    private clearArrays() {
+      this._absuluteIncrease_t0 = [];
+      this._absuluteIncrease_t1 = [];
+      this._relativeIncrease_t0 = [];
+      this._relativeIncrease_t1 = [];
+      this._fixedBaseIndex = [];
+      this._chainBaseIndex = [];
+
+      this.tableData = [];
     }
 
     private calculateDymanicMeasures() {
@@ -70,8 +97,6 @@ export class TabulatedDataComponent implements OnInit {
         this._chainBaseIndex = this.dynamicMesasuresCalculator.chainBaseIndex(
             this.profileData.values
         );
-        this.averangeChangeRate = this.dynamicMesasuresCalculator.averageRateOfChange(this._chainBaseIndex);
-        console.log(this.averangeChangeRate);
-        
+        this.averangeChangeRate = this.dynamicMesasuresCalculator.averageRateOfChange(this._chainBaseIndex);        
     }
 }

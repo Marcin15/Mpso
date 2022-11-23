@@ -54,6 +54,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
         private trendLineService: TrendLineCalculatorService,
         private exponentialSmoothingService: ExponentialSmoothingService
     ) {}
+    
     ngOnChanges(changes: SimpleChanges): void {
         let change = changes['profileData'];
 
@@ -248,10 +249,20 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
                             
                             let datasetIndex = chart.datasetIndex;
                             
-                            if(datasetIndex %2 !== 0) {
-                                return this._exponentialSmoothingAlfa0_3TrendLine.equation;
+                            switch (datasetIndex) {
+                                case 1:
+                                    return this._baseDateTrendLine.equation;
+                                case 3:
+                                    return this._threePointMovingAverangeTrendLine.equation;
+                                case 5: 
+                                    return this._fourPointMovingAverangeTrendLine.equation;
+                                case 7:
+                                    return this._exponentialSmoothingAlfa0_3TrendLine.equation;
+                                case 9:
+                                    return this._exponentialSmoothingAlfa0_7TrendLine.equation;
+                                default: 
+                                    break;
                             }
-
                             return `${chart.dataset.label}: ${chart.formattedValue}`;
                         },
 

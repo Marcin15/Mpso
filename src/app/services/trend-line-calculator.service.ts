@@ -54,7 +54,7 @@ export class TrendLineCalculatorService {
   
     return {
       values: values,
-      equation: `y = ${this.calculationHelper.roundToDecimalPlace(slope, 3)}x + ${this.calculationHelper.roundToDecimalPlace(intercept, 3)}`
+      equation: `y = ${this.calculationHelper.roundToDecimalPlace(slope, 4)}x + ${this.calculationHelper.roundToDecimalPlace(intercept, 4)}`
     }
   }
 
